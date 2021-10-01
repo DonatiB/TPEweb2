@@ -1,0 +1,20 @@
+/*Home*/
+.container{
+    display: flex;
+    padding: 3% 0% 0% 0%;
+    
+    min-width: 95%;  
+}
+.car-form{
+    width: 20%; 
+}
+.card-brands{
+    width: 80%;
+    display: flex;
+    flex-flow: wrap;
+    margin-left: 5%;
+}
+.card{
+    margin: 1%;
+}
+
