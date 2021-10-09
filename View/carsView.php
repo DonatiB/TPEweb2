@@ -1,7 +1,7 @@
 <?php
 require_once 'libs/smarty-3.1.39/libs/Smarty.class.php';
 
-class ViewCars{
+class CarsView{
 
     private $smarty;
     function __construct()
@@ -16,6 +16,10 @@ class ViewCars{
     function viewBrandLocation($brand){
         header("Location: ".BASE_URL_BRAND."/$brand");
     }
+
+    // function showLoginLocation(){
+    //     header("Location: ".BASE_URL."login");
+    // }
 
     function viewHome($allBrands){             
         $this->smarty->assign('allBrands', $allBrands);    

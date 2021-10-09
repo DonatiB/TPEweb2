@@ -12,12 +12,12 @@
           <a class="nav-link active" aria-current="page" href="{BASE_URL}">Home</a>
         </li>  
          <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="showAllCars">All Cars</a>
+          <a class="nav-link active" aria-current="page" href="allCars">All Cars</a>
         </li>  
       </ul>
     </div>
     <div class="d-flex">
-      <button class="btn btn-danger" type="submit">Sign off</button>
+      <button class="btn btn-danger" type="submit"><a href="logout">Sign off</a></button>
     </div>
   </div>
 </nav>

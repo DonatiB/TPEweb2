@@ -1,6 +1,6 @@
 <?php
 
-class ModelCars{
+class CarsModel{
 
     private $db;
     function __construct()

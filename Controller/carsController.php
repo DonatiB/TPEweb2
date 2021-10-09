@@ -1,35 +1,42 @@
 <?php
-require_once 'Model/modelCars.php';
-require_once 'View/viewCars.php';
+require_once './Model/carsModel.php';
+require_once './View/carsView.php';
+require_once './helpers/authHelper.php';
 
 
-class ControllerCars{
+class CarsController{
 
     private $model;
     private $view;
+    private $authHelper;
     function __construct()
     {
-        $this->model = new ModelCars;
-        $this->view = new ViewCars;
+        $this->model = new CarsModel;
+        $this->view = new CarsView;
+        $this->authHelper = new AuthHelper();
     }
 
     function home(){
+        $this->authHelper->checkLoggedIn();
         $allBrands = $this->model->getBrands();
         $this->view->viewHome($allBrands);
     }
 
     function showAllCars(){
+        $this->authHelper->checkLoggedIn();
         $allCars = $this->model->getAllCars();
         $this->view->viewAllCars($allCars);
     }
 
     function byBrand($brand){
+        $this->authHelper->checkLoggedIn();
         $carsBrand = $this->model->getCarsBrand($brand);
         $brandTitle = $this->model->getBrandTitle($brand);
         $this->view->carsByBrand($carsBrand, $brandTitle);
     }
 
     function descriptionByCar($carDescription){
+        $this->authHelper->checkLoggedIn();
         $carDescription = $this->model->descriptionByCarDB($carDescription);
         $this->view->viewDescription($carDescription);
     }
@@ -82,4 +89,6 @@ class ControllerCars{
         $this->model->modifiedNameDB($newName, $nameModified);
         $this->view->viewHomeLocation();
     }
+
+    
 }

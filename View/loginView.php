@@ -9,16 +9,16 @@ class LoginView{
         $this->smarty = new Smarty();
     }
 
-    function showLogin($error = null){
-        $this->smarty->assign('error', $error);
-        $this->smarty->display('templates/login.tpl');         
+    function showHome(){
+        header("Location: ".BASE_URL."home");
     }
 
     function showRegistration(){
         $this->smarty->display('templates/registration.tpl');         
     }
 
-    // function showHome(){
-    //     header("Location: ".BASE_URL."home");
-    // }
+    function showLogin($error = ""){
+        $this->smarty->assign('error', $error);
+        $this->smarty->display('templates/login.tpl');         
+    }
 }

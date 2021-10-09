@@ -1,6 +1,6 @@
 <?php
-require_once ("./model/userModel.php");
-require_once("./view/loginView.php");
+require_once  './model/userModel.php';
+require_once './view/loginView.php';
 
 class LoginController{
 
@@ -17,6 +17,12 @@ class LoginController{
         $this->view->showLogin();
     }
 
+    function logout(){
+        session_start();
+        session_destroy();
+        $this->view->showLogin();
+    }
+
     function registration(){ 
         $this->view->showRegistration();
     }
@@ -24,34 +30,31 @@ class LoginController{
     function newUser(){ 
         if(!empty($_POST['email']) && !empty($_POST['password'])){
             $userEmail = $_POST['email'];
-            $userPassword = $_POST['password'];
+            $userPassword = password_hash($_POST['password'], PASSWORD_BCRYPT);
         }
         $this->model->newUserDB($userEmail, $userPassword);
+        $this->view->showHome();
     }
 
-    
-    
+    function verifyLogin(){
+        if(!empty($_POST['email']) && !empty($_POST['password'])){
+            $email = $_POST['email'];
+            $password = $_POST['password'];
 
-    // function verifyLogin(){
-    //     if(!empty($_POST['email']) && !empty($_POST['password'])){
-    //         $email = $_POST['email'];
-    //         $password = $_POST['password'];
-
-    //         //obtenemos el usuario de la base de datos
-    //         $user = $this->model->getUser($email);
+            //obtenemos el usuario de la base de datos
+            $user = $this->model->getUser($email);
             
-    //         //si el usuario existe y las contraseñas coinciden
-    //         if($user && password_verify($password, $user->password)){
+            //si el usuario existe y las contraseñas coinciden
+            if($user && password_verify($password, $user->password)){
+                session_start();
+                $_SESSION['email'] = $email;
 
-    //             session_start();
-    //             $_SESSION['email'] = $email;
-
-    //             $this->view->showHome();
-    //         }else{
-    //             $this->view->showLogin("Acceso denegado");
-    //         }
-    //     }
-    // }
+                $this->view->showHome();
+            }else{
+                $this->view->showLogin("Access Denied");
+            }
+        }
+    }
 
     
 }
