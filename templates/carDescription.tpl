@@ -27,20 +27,23 @@
 </nav>
 
 {foreach from=$carDescription item=$car}
-    <div class="card bg-dark text-white" style="max-width: 45rem;">
-        <img src="images/supramk4.jpg" class="card-img" alt="Honda S2000">
-        <div class="card-img-overlay">
-            <h4 class="card-title">{$car->car}</h4>
-            <h5 class="card-title">{$car->brand}</h5>
-            <p class="card-text">{$car->year}</p>
-            <p class="card-text">{$car->description}</p>
-            <p class="card-text">{$car->price} --- {if !$car->sold}
+  <div class="container">
+    <div class="card bg-dark text-white" style="max-width: 45rem; margin:auto">
+      <img src="images/cars/supramk4.jpg" class="card-img" alt="Honda S2000">
+      <div class="card-img-overlay">
+          <h4 class="card-title">{$car->car}</h4>
+          <h5 class="card-title">{$car->brand}</h5>
+          <p class="card-text">{$car->year}</p>
+          <p class="card-text">{$car->description}</p>
+          <p class="card-text">{$car->price}
+          {if !$car->sold}
             On sale
-            {else}
-                Sold
-            {/if}</p>
-        </div>  
+          {else}
+            Sold
+          {/if}</p>
+      </div>  
     </div>  
+  </div>
 {/foreach}
 
 {include file="templates/footer.tpl"}

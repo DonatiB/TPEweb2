@@ -18,7 +18,7 @@ class ModelCars{
 
     function getAllCars(){
         $query = $this->db->prepare(
-            'SELECT car FROM cars');
+            'SELECT * FROM cars');
         $query->execute();
         $allCars = $query->fetchAll(PDO::FETCH_OBJ);
         return $allCars;

@@ -1,6 +1,5 @@
 {include file="templates/header.tpl"}
 
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="login">Login</a>
@@ -22,7 +21,6 @@
     </div>
   </div>
 </nav>
-
 
 <div class="container">   
     <div class="car-form">

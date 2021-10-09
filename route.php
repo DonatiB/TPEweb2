@@ -1,5 +1,6 @@
 <?php
 require_once 'Controller/controllerCars.php';
+require_once './controller/loginController.php';
 
 define('BASE_URL', '//'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].dirname($_SERVER['PHP_SELF']).'/');
 define('BASE_URL_BRAND', '//'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].dirname($_SERVER['PHP_SELF']).'/brand'); 
@@ -13,13 +14,17 @@ if(!empty($_GET['action'])){
 $paramsURL = explode('/', $action);
 
 $controllerCars = new ControllerCars();
+$loginController = new LoginController();
 
 switch($paramsURL[0]){
+    case 'login':
+        $loginController->login();
+    break;
     case 'home':
-        $controllerCars->home();;
+        $controllerCars->home();
     break;
     case 'showAllCars':
-        $controllerCars->showAllCars();;
+        $controllerCars->showAllCars();
     break;
     case 'brand':
         $controllerCars->byBrand($paramsURL[1]);       
