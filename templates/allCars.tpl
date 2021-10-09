@@ -19,7 +19,7 @@
             <div class="card-body">
                 <h5 class="card-title">{$car->car}</h5>
                 <p class="card-text">{$car->description|truncate:50}</p>
-                <p class="card-text"><small class="text-muted">{$car->year}</small></p>
+                <p class="card-text"><small class="text-muted">Year: {$car->year}</small></p>
             </div>
         </div>
     {/foreach}

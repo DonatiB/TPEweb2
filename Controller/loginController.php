@@ -17,6 +17,21 @@ class LoginController{
         $this->view->showLogin();
     }
 
+    function registration(){ 
+        $this->view->showRegistration();
+    }
+
+    function newUser(){ 
+        if(!empty($_POST['email']) && !empty($_POST['password'])){
+            $userEmail = $_POST['email'];
+            $userPassword = $_POST['password'];
+        }
+        $this->model->newUserDB($userEmail, $userPassword);
+    }
+
+    
+    
+
     // function verifyLogin(){
     //     if(!empty($_POST['email']) && !empty($_POST['password'])){
     //         $email = $_POST['email'];
@@ -37,4 +52,6 @@ class LoginController{
     //         }
     //     }
     // }
+
+    
 }

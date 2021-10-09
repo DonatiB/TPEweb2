@@ -4,8 +4,8 @@
     padding: 3% 0% 0% 0%; 
     min-width: 95%;  
 }
-.car-form{
-    width: 20%; 
+.forms{
+    width: 25%; 
 }
 .card-brands{
     width: 80%;
@@ -15,6 +15,11 @@
 }
 .card{
     margin: 1%;
+}
+.form-car, .form-brand{
+    margin-bottom: 20vh;
+    padding: 5%;
+    background-color: #faf9f9;
 }
 
 /*Cars Sold*/

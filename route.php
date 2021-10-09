@@ -20,6 +20,12 @@ switch($paramsURL[0]){
     case 'login':
         $loginController->login();
     break;
+    case 'registration':
+        $loginController->registration();
+    break;
+    case 'newUser':
+        $loginController->newUser();
+    break;
     case 'home':
         $controllerCars->home();
     break;

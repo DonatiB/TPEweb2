@@ -3,7 +3,7 @@
 <div class="container-login">
     <div class="login-container">
         <div class="register">
-            <h2>REGISTRATION</h2>
+            <h2>LOG IN</h2>
             <form class="form-floating" action="verify" method="post">
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control nombre" name="email" id="floatingInput" placeholder="name@example.com">
@@ -17,7 +17,7 @@
             </form>
         </div>
         <div class="login">
-            <h2>Log In</h2>
+            <a href="registration"><h2>REGISTRATION</h2></a>
             <div class="login-items">
                 <button class="fb"><i class="fab fa-facebook-f"></i> Access with Facebook</button>
                 <button class="tw"><i class="fab fa-twitter"></i> Access with Twitter</button>

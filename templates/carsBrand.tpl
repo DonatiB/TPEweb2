@@ -25,17 +25,17 @@
     {foreach from=$carsBrand item=$cars}
         <div class="card" style="max-width: 18rem;">
             <img src="images/cars/supramk4.jpg" class="card-img-top {if $cars->sold} sold {/if}" alt="japonese car">
-            <div class="card-body {if $cars->sold} sold {/if}" >
+            <div class="card-body {if $cars->sold} sold {/if}">
                 {if !$cars->sold}
                     <h5 class="card-title"><a href="description/{$cars->id}">{$cars->car}</a></h5>
                     <p class="card-text">{$cars->description|truncate:50}</p>
-                    <p class="card-text"><small class="text-muted">{$cars->year}</small></p>
+                    <p class="card-text"><small class="text-muted">Year: {$cars->year}</small></p>
                     <a href="deleteCar/{$cars->brand}/{$cars->id}" class="btn btn-danger">Delete</a>
                     <a href="onSaleCar/{$cars->brand}/{$cars->id}" class="btn btn-primary">Sold</a>
                 {else}
                     <h5 class="card-title"><a href="description/{$cars->id}">{$cars->car}</a></h5>
                     <p class="card-text">{$cars->description|truncate:50}</p>
-                    <p class="card-text"><small class="text-muted">{$cars->year}</small></p>
+                    <p class="card-text"><small class="text-muted">Year: {$cars->year}</small></p>
                     <a href="deleteCar/{$cars->brand}/{$cars->id}" class="btn btn-danger">Delete</a>
                     <a href="soldCar/{$cars->brand}/{$cars->id}" class="btn btn-primary">Restore</a>
                 {/if}           

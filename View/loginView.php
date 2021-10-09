@@ -14,6 +14,10 @@ class LoginView{
         $this->smarty->display('templates/login.tpl');         
     }
 
+    function showRegistration(){
+        $this->smarty->display('templates/registration.tpl');         
+    }
+
     // function showHome(){
     //     header("Location: ".BASE_URL."home");
     // }
