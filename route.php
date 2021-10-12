@@ -56,6 +56,9 @@ switch($paramsURL[0]){
     case 'createCar': 
         $carsController->createCar();   
     break;
+    case 'saveLogo': 
+        $carsController->saveLogo();    
+    break;
     case 'createBrand': 
         $carsController->createBrand();    
     break;

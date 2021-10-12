@@ -19,7 +19,8 @@ class CarsController{
     function home(){
         $this->authHelper->checkLoggedIn();
         $allBrands = $this->model->getBrands();
-        $this->view->viewHome($allBrands);
+        $brandsLogo= $this->model->getBrandsLogo();
+        $this->view->viewHome($allBrands, $brandsLogo);
     }
 
     function showAllCars(){
@@ -32,9 +33,9 @@ class CarsController{
         $this->authHelper->checkLoggedIn();
         $carsBrand = $this->model->getCarsBrand($brand);
         $brandTitle = $this->model->getBrandTitle($brand);
-        $imgCars = $this->model->getImgCars();
+        // $imgCars = $this->model->getImgCars();
 
-        $this->view->carsByBrand($carsBrand, $brandTitle, $imgCars);
+        $this->view->carsByBrand($carsBrand, $brandTitle);
     }
 
     function descriptionByCar($carDescription){
@@ -58,23 +59,58 @@ class CarsController{
         $this->view->viewBrandLocation($brand);
     }
 
-    function createCar(){       
-        if(!isset($_POST['sold'])){
-            $sold = 0;    
-        }else{
-            $sold = 1;
-        } 
-        $this->model->createCarDB($_POST['car'], $_POST['brand'], $_POST['year'], $_POST['description'], $_POST['euro'], $sold);    
-        $this->view->viewHomeLocation();
+    function createCar(){  
+        
+        if(isset($_FILES['photo'])){
+            //retenemos toda la informacion
+            $typeFile = $_FILES['photo']['type'];
+            $nameFile = $_FILES['photo']['name'];
+            $sizeFile = $_FILES['photo']['size'];
+            $brand = $_POST['brand'];
+            //extraemos los binarios de la img
+            $uploadedImg = fopen($_FILES['photo']['tmp_name'], 'r');
+            $biImg = fread($uploadedImg, $sizeFile);
+
+            
+            $this->model->saveImgCarDB($brand, $nameFile, $biImg, $typeFile);
+            if(!isset($_POST['sold'])){
+                $sold = 0;    
+            }else{
+                $sold = 1;
+            } 
+            $this->model->createCarDB($_POST['car'], $_POST['brand'], $_POST['year'], $_POST['description'], $_POST['euro'], $sold);    
+            $this->view->viewHomeLocation();
+            
+        }
+         
+        
 
     }
 
-    function createBrand(){
+    function saveLogo(){
+        if(isset($_FILES['photo'])){
+            //retenemos toda la informacion
+            $typeFile = $_FILES['photo']['type'];
+            $nameFile = $_FILES['photo']['name'];
+            $sizeFile = $_FILES['photo']['size'];
+            $brand = $_POST['brand'];
+            //extraemos los binarios de la img
+            $uploadedImg = fopen($_FILES['photo']['tmp_name'], 'r');
+            $biImg = fread($uploadedImg, $sizeFile);
+
+            
+            $this->model->saveLogoDB($brand, $nameFile, $biImg, $typeFile);
+            $this->view->viewHomeLocation();
+        }
+    }
+
+    function createBrand(){ 
         if(isset($_POST['brand'], $_POST['descriptionBrand'])){
             $brand = $_POST['brand'];
             $description = $_POST['descriptionBrand'];
-        } 
-        $this->model->createBrandDB($brand, $description);    
+            $idLogo = $_POST['idlogo'];
+        }
+        $this->model->createBrandDB($brand, $description, $idLogo);    
         $this->view->viewHomeLocation();
     }
 
@@ -91,6 +127,4 @@ class CarsController{
         $this->model->modifiedNameDB($newName, $nameModified);
         $this->view->viewHomeLocation();
     }
-
-    
 }

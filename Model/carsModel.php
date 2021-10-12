@@ -10,10 +10,29 @@ class CarsModel{
 
     function getBrands(){
         $query = $this->db->prepare(
-            'SELECT * FROM brands GROUP BY brand');
+            'SELECT b.id_brand, b.brand, b.description, i.id_logo, i.image 
+            FROM brands b
+            INNER JOIN imgbrands i
+            ON b.id_logo = i.id_logo
+            GROUP BY b.brand');
         $query->execute();
         $allBrands = $query->fetchAll(PDO::FETCH_OBJ);
         return $allBrands;
+    }
+    // function getBrands(){
+    //     $query = $this->db->prepare(
+    //         'SELECT * FROM brands GROUP BY brand');
+    //     $query->execute();
+    //     $allBrands = $query->fetchAll(PDO::FETCH_OBJ);
+    //     return $allBrands;
+    // }
+
+    function getBrandsLogo(){
+        $query = $this->db->prepare(
+            'SELECT * FROM imgbrands');
+        $query->execute();
+        $ford = $query->fetchAll(PDO::FETCH_OBJ);
+        return $ford;
     }
 
     function getAllCars(){
@@ -70,15 +89,15 @@ class CarsModel{
         $query = $this->db->prepare("UPDATE cars SET sold=1 WHERE id=?");
         $query->execute(array($sold));
     }
-
+    
     function createCarDB($car, $brand, $year, $description, $euro, $sold){     
         $queryCar = $this->db->prepare('INSERT INTO cars(car, id_brand, year, description, price, sold) VALUES (?, ?, ?,?, ?, ?)');         
         $queryCar->execute(array($car, $brand, $year, $description, $euro ,$sold));
     }
 
-    function createBrandDB($brand, $description){
-        $queryCar = $this->db->prepare('INSERT INTO brands(brand, description) VALUES (?, ?)');         
-        $queryCar->execute(array($brand,$description));
+    function createBrandDB($brand, $description, $idLogo){
+        $queryCar = $this->db->prepare('INSERT INTO brands(brand, description, id_logo) VALUES (?, ?, ?)');         
+        $queryCar->execute(array($brand, $description, $idLogo));
     }
 
     function modifiedNameDB($newName, $nameModified){
@@ -93,11 +112,21 @@ class CarsModel{
         $queryCar->execute(array($brand));
     }
 
-    function getImgCars(){
-        $query = $this->db->prepare(
-            'SELECT * FROM imgcars');
-        $query->execute();
-        $img = $query->fetchAll(PDO::FETCH_OBJ);
-        return $img;
+    function saveImgCarDB($brand, $name, $biImg, $type){
+        $query = $this->db->prepare('INSERT INTO `imgcars`(`car`, `name`, `image`, `type`) VALUE(?, ?, ?, ?)');
+        $query->execute(array($brand, $name, $biImg, $type));
     }
+
+    function saveLogoDB($brand, $name, $biImg, $type){
+        $query = $this->db->prepare('INSERT INTO `imgbrands`(`brand_logo`, `name`, `image`, `type`) VALUE(?, ?, ?, ?)');
+        $query->execute(array($brand, $name, $biImg, $type));
+    }
+
+    // function getImgCars(){
+    //     $query = $this->db->prepare(
+    //         'SELECT * FROM imgcars');
+    //     $query->execute();
+    //     $img = $query->fetchAll(PDO::FETCH_OBJ);
+    //     return $img;
+    // }
 }

@@ -30,6 +30,10 @@
                     <label for="enter-car" class="form-label" >Enter Car</label>
                     <input type="text" name="car" class="form-control" id="enter-car">    
                 </div>
+                <div class="mb-3">
+                    <label for="enter-img" class="form-label" >Img</label>
+                    <input type="file" name="photo" class="form-control" id="enter-img"> 
+                </div>
                 <select name="brand" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
                     {foreach from=$allBrands item=$brand}
                     <option value="{$brand->id_brand}">{$brand->brand}</option> 
@@ -56,15 +60,30 @@
         </div>
         
         <div class="form-brand">
-            <form action="createBrand" method="post"> 
+            <form action="saveLogo" method="post" enctype="multipart/form-data"> 
                 <div class="mb-3">
-                    <label for="enter-brand" class="form-label">Enter Brand</label>
+                    <label for="enter-brand" class="form-label" >Brand</label>
                     <input type="text" name="brand"  class="form-control" id="enter-brand">        
-                </div> 
+                </div>
+                <div class="mb-3">
+                    <label for="enter-logo" class="form-label" >Logo</label>
+                    <input type="file" name="photo" class="form-control" id="enter-logo"> 
+                </div>      
+                <button type="submit" class="btn btn-primary">Registrar Logo</button>  
+            </form>
+            <form action="createBrand" method="post"> 
+                <select name="brand" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                    {foreach from=$brandsLogo item=$item}
+                        <option value="{$item->brand}">{$item->brand}</option> 
+                    {/foreach}
+                </select>
                 <div class="form-floating">
                     <textarea name="descriptionBrand" class="form-control" placeholder="Leave a description here" id="floatingTextarea"></textarea>
                     <label for="floatingTextarea">Description New Brand</label>
                 </div> 
+                {foreach from=$brandsLogo item=$item}
+                    <input type="hidden" name="idlogo" value="{$item->id_logo}">
+                {/foreach}
                 <br> 
                 <button type="submit" class="btn btn-primary">Register New Brand</button>   
             </form>   
@@ -86,7 +105,7 @@
     <div class="card-brands">
         {foreach from=$allBrands item=$brand}                             
                 <div class="card" style="width: 18rem;">   
-                <img src="images/brands/mazda.jpg" class="card-img-top" alt="...">
+                 <img src="data:image/jpg;base64,{$brand->image}" class="card-img-top" alt="{$car->brand} Logo"> 
                 <div class="card-body">
                     <h5 class="card-title">{$brand->brand}</h5>
                     <p class="card-text">{$brand->description}</p>                            
