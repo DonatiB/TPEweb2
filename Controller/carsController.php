@@ -32,7 +32,9 @@ class CarsController{
         $this->authHelper->checkLoggedIn();
         $carsBrand = $this->model->getCarsBrand($brand);
         $brandTitle = $this->model->getBrandTitle($brand);
-        $this->view->carsByBrand($carsBrand, $brandTitle);
+        $imgCars = $this->model->getImgCars();
+
+        $this->view->carsByBrand($carsBrand, $brandTitle, $imgCars);
     }
 
     function descriptionByCar($carDescription){

@@ -23,8 +23,12 @@
 
 <div class="card-group">
     {foreach from=$carsBrand item=$cars}
-        <div class="card" style="max-width: 18rem;">
-            <img src="images/cars/supramk4.jpg" class="card-img-top {if $cars->sold} sold {/if}" alt="japonese car">
+      <div class="card" style="max-width: 18rem;">
+        {foreach from=$imgCars item=$img}
+            {if $cars->car == $img->image}
+              <img src="images/cars/{$img->image}.jpg" class="card-img-top {if $cars->sold} sold {/if}" alt="japonese car">
+            {/if} 
+        {/foreach}
             <div class="card-body {if $cars->sold} sold {/if}">
                 {if !$cars->sold}
                     <h5 class="card-title"><a href="description/{$cars->id}">{$cars->car}</a></h5>
@@ -41,6 +45,7 @@
                 {/if}           
             </div>
         </div>
+      
     {/foreach}
 </div>
 

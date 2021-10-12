@@ -17,7 +17,7 @@
       </ul>
     </div>
     <div class="d-flex">
-      <button class="btn btn-danger" type="submit"><a href="logout">Sign off</a></button>
+      <a href="logout"><button class="btn btn-danger" type="submit">Sign off</button></a>
     </div>
   </div>
 </nav>

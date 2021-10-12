@@ -17,10 +17,6 @@ class CarsView{
         header("Location: ".BASE_URL_BRAND."/$brand");
     }
 
-    // function showLoginLocation(){
-    //     header("Location: ".BASE_URL."login");
-    // }
-
     function viewHome($allBrands){             
         $this->smarty->assign('allBrands', $allBrands);    
         $this->smarty->display('templates/home.tpl'); 
@@ -31,9 +27,10 @@ class CarsView{
         $this->smarty->display('templates/allCars.tpl'); 
     }
 
-    function carsByBrand($carsBrand, $brandTitle){
+    function carsByBrand($carsBrand, $brandTitle, $imgCars){
         $this->smarty->assign('title', $brandTitle);
         $this->smarty->assign('carsBrand', $carsBrand);
+        $this->smarty->assign('imgCars', $imgCars);
         $this->smarty->display('templates/carsBrand.tpl');
     }
 

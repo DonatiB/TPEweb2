@@ -92,4 +92,12 @@ class CarsModel{
         $queryCar = $this->db->prepare("DELETE FROM brands WHERE brand=?");
         $queryCar->execute(array($brand));
     }
+
+    function getImgCars(){
+        $query = $this->db->prepare(
+            'SELECT * FROM imgcars');
+        $query->execute();
+        $img = $query->fetchAll(PDO::FETCH_OBJ);
+        return $img;
+    }
 }
