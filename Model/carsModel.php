@@ -19,20 +19,13 @@ class CarsModel{
         $allBrands = $query->fetchAll(PDO::FETCH_OBJ);
         return $allBrands;
     }
-    // function getBrands(){
-    //     $query = $this->db->prepare(
-    //         'SELECT * FROM brands GROUP BY brand');
-    //     $query->execute();
-    //     $allBrands = $query->fetchAll(PDO::FETCH_OBJ);
-    //     return $allBrands;
-    // }
 
     function getBrandsLogo(){
         $query = $this->db->prepare(
             'SELECT * FROM imgbrands');
         $query->execute();
-        $ford = $query->fetchAll(PDO::FETCH_OBJ);
-        return $ford;
+        $logo = $query->fetchAll(PDO::FETCH_OBJ);
+        return $logo;
     }
 
     function getAllCars(){
@@ -42,6 +35,17 @@ class CarsModel{
         $allCars = $query->fetchAll(PDO::FETCH_OBJ);
         return $allCars;
     }
+
+    // function getAllCars(){
+    //     $query = $this->db->prepare(
+    //         'SELECT * 
+    //         FROM cars c 
+    //         INNER JOIN imgcars i
+    //         ON c.id = i.id');
+    //     $query->execute();
+    //     $allCars = $query->fetchAll(PDO::FETCH_OBJ);
+    //     return $allCars;
+    // }
 
     function getCarsBrand($brand){
         $query = $this->db->prepare(
@@ -53,6 +57,17 @@ class CarsModel{
         $query->execute(array($brand));
         $carsBrand = $query->fetchAll(PDO::FETCH_OBJ);
         return $carsBrand;
+    }
+
+    function getImgCars(){
+        $query = $this->db->prepare(
+            'SELECT * 
+            FROM cars c 
+            INNER JOIN imgcars i
+            ON c.id = i.id');
+        $query->execute();
+        $carsimg = $query->fetchAll(PDO::FETCH_OBJ);
+        return $carsimg;
     }
     
     function getBrandTitle($brand){

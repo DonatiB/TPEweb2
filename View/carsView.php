@@ -28,22 +28,22 @@ class CarsView{
         $this->smarty->display('templates/home.tpl'); 
     }
 
-    // function viewId($id){     
-            
+    // function viewId($id){            
     //     $this->smarty->display('templates/home.tpl'); 
     // }
-
-   
 
     function viewAllCars($allCars){             
         $this->smarty->assign('allCars', $allCars);    
         $this->smarty->display('templates/allCars.tpl'); 
     }
 
-    function carsByBrand($carsBrand, $brandTitle){
+    function carsByBrand($carsBrand, $brandTitle, $carsImg){
+        foreach($carsImg as $images){
+            $images->image = base64_encode($images->image);
+        }  
         $this->smarty->assign('title', $brandTitle);
         $this->smarty->assign('carsBrand', $carsBrand);
-        // $this->smarty->assign('imgCars', $imgCars);
+        $this->smarty->assign('carsImg', $carsImg);
         $this->smarty->display('templates/carsBrand.tpl');
     }
 
