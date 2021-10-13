@@ -54,7 +54,10 @@ switch($paramsURL[0]){
         $carsController->onSaleCar($paramsURL[1], $paramsURL[2]);    
     break;
     case 'createCar': 
-        $carsController->createCar();   
+        $carsController->createCar(); 
+    break;
+    case 'saveImgCar': 
+        $carsController->saveImgCar();    
     break;
     case 'saveLogo': 
         $carsController->saveLogo();    

@@ -24,16 +24,16 @@
 
 <div class="container">   
     <div class="forms">
-        <div class="form-car">
+         <div class="form-car">
             <form action="createCar" method="post">    
                 <div class="mb-3">        
                     <label for="enter-car" class="form-label" >Enter Car</label>
                     <input type="text" name="car" class="form-control" id="enter-car">    
                 </div>
-                <div class="mb-3">
-                    <label for="enter-img" class="form-label" >Img</label>
+                {* <div class="mb-3">
+                    <label for="enter-img" class="form-label">Img</label>
                     <input type="file" name="photo" class="form-control" id="enter-img"> 
-                </div>
+                </div> *}
                 <select name="brand" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
                     {foreach from=$allBrands item=$brand}
                     <option value="{$brand->id_brand}">{$brand->brand}</option> 
@@ -56,6 +56,21 @@
                     <input type="number" name="euro"class="form-control" id="enter-price"> 
                 </div>  
                 <button type="submit" class="btn btn-primary">Register</button>      
+                </form>
+                <form action="saveImgCar" method="post" enctype="multipart/form-data"> 
+                <div class="mb-3">        
+                    <label for="enter-car-img" class="form-label" >Enter Car Img</label>
+                    <input type="text" name="car" class="form-control" id="enter-car-img">    
+                </div>
+                {foreach from=$id item=$item}
+                    <input type="hidden" name="id" value="{$item->id}">
+                    {* <input type="number" name="id" value="65"> *}
+                {/foreach}   
+                <div class="mb-3">
+                    <label for="enter-logo" class="form-label" >Logo</label>
+                    <input type="file" name="photo" class="form-control" id="enter-logo"> 
+                </div>    
+                <button type="submit" class="btn btn-primary">Register Image</button>  
             </form>
         </div>
         
@@ -69,7 +84,7 @@
                     <label for="enter-logo" class="form-label" >Logo</label>
                     <input type="file" name="photo" class="form-control" id="enter-logo"> 
                 </div>      
-                <button type="submit" class="btn btn-primary">Registrar Logo</button>  
+                <button type="submit" class="btn btn-primary">Register Logo</button>  
             </form>
             <form action="createBrand" method="post"> 
                 <select name="brand" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">

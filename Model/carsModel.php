@@ -93,6 +93,20 @@ class CarsModel{
     function createCarDB($car, $brand, $year, $description, $euro, $sold){     
         $queryCar = $this->db->prepare('INSERT INTO cars(car, id_brand, year, description, price, sold) VALUES (?, ?, ?,?, ?, ?)');         
         $queryCar->execute(array($car, $brand, $year, $description, $euro ,$sold));
+        
+    }
+
+    function getIdCarImg($car){     
+        $query = $this->db->prepare('SELECT id FROM cars WHERE car=?');
+        $query->execute(array($car));
+        $carId = $query->fetchAll(PDO::FETCH_OBJ);
+        return $carId;
+    }
+
+    function saveImgCarDB($car, $name, $biImg, $type, $id){
+        // $id = $this->getIdCarImg($car);
+        $query = $this->db->prepare('INSERT INTO imgcars(car, name, image, type, id) VALUES (?, ?, ?, ?, ?)');
+        $query->execute(array($car, $name, $biImg, $type, $id));
     }
 
     function createBrandDB($brand, $description, $idLogo){
@@ -107,26 +121,13 @@ class CarsModel{
         $query->execute();
     }
 
-    function deleteBrandDB($brand){
-        $queryCar = $this->db->prepare("DELETE FROM brands WHERE brand=?");
-        $queryCar->execute(array($brand));
-    }
-
-    function saveImgCarDB($brand, $name, $biImg, $type){
-        $query = $this->db->prepare('INSERT INTO `imgcars`(`car`, `name`, `image`, `type`) VALUE(?, ?, ?, ?)');
-        $query->execute(array($brand, $name, $biImg, $type));
-    }
-
     function saveLogoDB($brand, $name, $biImg, $type){
         $query = $this->db->prepare('INSERT INTO `imgbrands`(`brand_logo`, `name`, `image`, `type`) VALUE(?, ?, ?, ?)');
         $query->execute(array($brand, $name, $biImg, $type));
     }
 
-    // function getImgCars(){
-    //     $query = $this->db->prepare(
-    //         'SELECT * FROM imgcars');
-    //     $query->execute();
-    //     $img = $query->fetchAll(PDO::FETCH_OBJ);
-    //     return $img;
-    // }
+    function deleteBrandDB($brand){
+        $queryCar = $this->db->prepare("DELETE FROM brands WHERE brand=?");
+        $queryCar->execute(array($brand));
+    }
 }
