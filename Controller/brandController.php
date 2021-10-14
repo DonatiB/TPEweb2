@@ -19,10 +19,10 @@ class BrandController{
     function home(){
         $this->authHelper->checkLoggedIn();
         $allBrands = $this->model->getBrands();
-        $allBrandsCar = $this->model->getBrandsCar();
+        $allBrandsAndCar = $this->model->getBrandsAndCar();
         $brandsLogo= $this->model->getBrandsLogo();
         $allCars = $this->model->getAllCars();
-        $this->view->viewHome($allBrands, $brandsLogo, $allCars, null, $allBrandsCar);
+        $this->view->viewHome($allBrands, $brandsLogo, $allCars, null, $allBrandsAndCar, null);
     }
 
     function saveLogo(){
@@ -35,13 +35,16 @@ class BrandController{
             //extraemos los binarios de la img
             $uploadedImg = fopen($_FILES['photo']['tmp_name'], 'r');
             $biImg = fread($uploadedImg, $sizeFile);
-
             
             $this->model->saveLogoDB($brand, $nameFile, $biImg, $typeFile);
-            $this->view->viewHomeLocation();
-            // var_dump($_FILES['photo']);
-            // echo "<br>";
-            // var_dump($biImg);
+            $idLogo = $this->model->getIdBrandImg($_POST['brand']);
+
+            // $this->view->viewHomeLocation();
+            $allBrands = $this->model->getBrands();
+            $allBrandsAndCar = $this->model->getBrandsAndCar();
+            $brandsLogo= $this->model->getBrandsLogo();
+            $allCars = $this->model->getAllCars();
+            $this->view->viewHome($allBrands, $brandsLogo, $allCars, null, $allBrandsAndCar, $idLogo);
         }
     }
 
@@ -52,10 +55,7 @@ class BrandController{
             $idLogo = $_POST['idlogo'];
         }
 
-        // var_dump($brand);
-        // var_dump($description);
-        // var_dump($idLogo);
-        $this->model->createBrandDB($brand, $description, $idLogo);    
+        $this->model->createBrandDB($brand, $description, $idLogo);
         $this->view->viewHomeLocation();
     }
 

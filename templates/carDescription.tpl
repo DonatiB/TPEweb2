@@ -1,5 +1,6 @@
 {include file="templates/header.tpl"}
 
+{*Navs diferentes para los templates*}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="login">Login</a>
@@ -26,15 +27,16 @@
   </div>
 </nav>
 
+{*Traigo con un iner datos de las tablas marca y auto*}
 {foreach from=$carDescription item=$car}
   <div class="container">
     <div class="card bg-dark text-white" style="max-width: 45rem; margin:auto;">
+      {*Traigo las imagenes de los autos, si el nombre del auto es igual al nombre del auto por imagen*}
       {foreach from=$carsImg item=$img}
         {if $car->car == $img->carImg}
           <img src="images/cars/{$img->name}" class="card-img-top" alt="{$car->car}">
         {/if} 
       {/foreach}
-      {* <img src="images/cars/supramk4.jpg" class="card-img" alt="Honda S2000"> *}
       <div class="card-img-overlay">
           <h4 class="card-title">{$car->car}</h4>
           <h5 class="card-title">{$car->brand}</h5>

@@ -20,6 +20,19 @@ class CarsModel{
         return $allBrands;
     }
 
+     //para eliminar la marca primero hay que eliminar el auto, para eliminar el auto primero hay que eliminar la imagen
+     function getBrandsAndCar(){
+        $query = $this->db->prepare(
+            'SELECT *
+            FROM brands b
+            INNER JOIN cars c
+            ON b.id_brand = c.id_brand
+            GROUP BY b.brand');
+        $query->execute();
+        $allBrands = $query->fetchAll(PDO::FETCH_OBJ);
+        return $allBrands;
+    }
+
     function getBrandsLogo(){
         $query = $this->db->prepare(
             'SELECT * FROM imgbrands');
@@ -28,13 +41,12 @@ class CarsModel{
         return $logo;
     }
 
-    // function getAllCars(){
-    //     $query = $this->db->prepare(
-    //         'SELECT * FROM cars');
-    //     $query->execute();
-    //     $allCars = $query->fetchAll(PDO::FETCH_OBJ);
-    //     return $allCars;
-    // }
+    function getIdBrandImg($brand){     
+        $query = $this->db->prepare('SELECT id_logo FROM imgbrands WHERE brand=?');
+        $query->execute(array($brand));
+        $brandId = $query->fetchAll(PDO::FETCH_OBJ);
+        return $brandId;
+    }
 
     function getAllCars(){
         $query = $this->db->prepare(
@@ -66,8 +78,8 @@ class CarsModel{
             INNER JOIN imgcars i
             ON c.id = i.id');
         $query->execute();
-        $carsimg = $query->fetchAll(PDO::FETCH_OBJ);
-        return $carsimg;
+        $carsImg = $query->fetchAll(PDO::FETCH_OBJ);
+        return $carsImg;
     }
     
     function getBrandTitle($brand){
@@ -89,19 +101,6 @@ class CarsModel{
         $carDescription = $query->fetchAll(PDO::FETCH_OBJ);
         return $carDescription;
     }
-
-    // function descriptionByCarImgDB($carDescription){
-    //     $query = $this->db->prepare(
-    //         'SELECT *
-    //         FROM cars c
-    //         INNER JOIN imgcars b
-    //         ON c.id_brand = b.id_brand 
-    //         WHERE c.id = ?'
-    //     );
-    //     $query->execute(array($carDescription));
-    //     $carDescription = $query->fetchAll(PDO::FETCH_OBJ);
-    //     return $carDescription;
-    // }
 
     function deleteCarDB($id, $car){
         $queryCar = $this->db->prepare("DELETE FROM imgcars WHERE carImg=?");
@@ -134,30 +133,13 @@ class CarsModel{
     }
 
     function saveImgCarDB($car, $name, $biImg, $type, $id){
-        // $id = $this->getIdCarImg($car);
         $query = $this->db->prepare('INSERT INTO imgcars(carImg, name, image, type, id) VALUES (?, ?, ?, ?, ?)');
         $query->execute(array($car, $name, $biImg, $type, $id));
     }
-
-    // function createBrandDB($brand, $description, $idLogo){
-    //     $queryCar = $this->db->prepare('INSERT INTO brands(brand, description, id_logo) VALUES (?, ?, ?)');         
-    //     $queryCar->execute(array($brand, $description, $idLogo));
-    // }
-
-    // function modifiedNameDB($newName, $nameModified){
-    //     $query = $this->db->prepare("UPDATE brands SET brand=:newName WHERE brand=:nameModified");  
-    //     $query->bindParam(':newName', $newName);
-    //     $query->bindParam(':nameModified', $nameModified);       
-    //     $query->execute();
-    // }
 
     function saveLogoDB($brand, $name, $biImg, $type){
         $query = $this->db->prepare('INSERT INTO `imgbrands`(`brand_logo`, `name`, `image`, `type`) VALUE(?, ?, ?, ?)');
         $query->execute(array($brand, $name, $biImg, $type));
     }
 
-    // function deleteBrandDB($brand){
-    //     $queryCar = $this->db->prepare("DELETE FROM brands WHERE brand=?");
-    //     $queryCar->execute(array($brand));
-    // }
 }

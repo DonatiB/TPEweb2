@@ -21,7 +21,7 @@ class BrandModel{
     }
 
     //para eliminar la marca primero hay que eliminar el auto, para eliminar el auto primero hay que eliminar la imagen
-    function getBrandsCar(){
+    function getBrandsAndCar(){
         $query = $this->db->prepare(
             'SELECT *
             FROM brands b
@@ -39,6 +39,13 @@ class BrandModel{
         $query->execute();
         $logo = $query->fetchAll(PDO::FETCH_OBJ);
         return $logo;
+    }
+
+    function getIdBrandImg($brand){     
+        $query = $this->db->prepare('SELECT id_logo FROM imgbrands WHERE brand=?');
+        $query->execute(array($brand));
+        $brandId = $query->fetchAll(PDO::FETCH_OBJ);
+        return $brandId;
     }
 
     function getAllCars(){
@@ -66,6 +73,8 @@ class BrandModel{
         $queryCar->execute(array($car));
         $queryCar = $this->db->prepare("DELETE FROM brands WHERE brand=?");
         $queryCar->execute(array($brand));
+        $queryImgBrand = $this->db->prepare("DELETE FROM imgbrands WHERE brand=?");
+        $queryImgBrand->execute(array($brand));
     }
 
     function modifiedNameDB($newName, $nameModified){

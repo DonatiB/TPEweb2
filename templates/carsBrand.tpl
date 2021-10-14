@@ -1,5 +1,6 @@
 {include file="templates/headerBrand.tpl"}
 
+{*Navs diferentes para los templates*}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="login">Login</a>
@@ -22,8 +23,10 @@
 </nav>
 
 <div class="card-group">
+    {*Traigo los autos por marca*}
     {foreach from=$carsBrand item=$cars}
       <div class="card" style="max-width: 18rem;">
+        {*Traigo las imagenes de los autos, si el nombre del auto por marca es igual al nombre del auto por imagen*}
         {foreach from=$carsImg item=$img}
           {if $cars->car == $img->carImg}
             <img src="images/cars/{$img->name}" class="card-img-top {if $cars->sold} sold {/if}" alt="{$cars->car}">
@@ -35,13 +38,12 @@
               <p class="card-text">{$cars->description|truncate:50}</p>
               <p class="card-text"><small class="text-muted">Year: {$cars->year}</small></p>
               <a href="deleteCar/{$cars->brand}/{$cars->id}/{$cars->car}" class="btn btn-danger">Delete</a>
-              {* <a href="deleteCar/{$cars->brand}/{$cars->id}" class="btn btn-danger">Delete</a> *}
               <a href="onSaleCar/{$cars->brand}/{$cars->id}" class="btn btn-primary">Sold</a>
           {else}
               <h5 class="card-title"><a href="description/{$cars->id}">{$cars->car}</a></h5>
               <p class="card-text">{$cars->description|truncate:50}</p>
               <p class="card-text"><small class="text-muted">Year: {$cars->year}</small></p>
-              <a href="deleteCar/{$cars->brand}/{$cars->id}" class="btn btn-danger">Delete</a>
+              <a href="deleteCar/{$cars->brand}/{$cars->id}/{$cars->car}" class="btn btn-danger">Delete</a>
               <a href="soldCar/{$cars->brand}/{$cars->id}" class="btn btn-primary">Restore</a>
           {/if}           
         </div>

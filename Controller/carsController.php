@@ -19,9 +19,10 @@ class CarsController{
     function home(){
         $this->authHelper->checkLoggedIn();
         $allBrands = $this->model->getBrands();
+        $allBrandsCar = $this->model->getBrandsAndCar();
         $brandsLogo= $this->model->getBrandsLogo();
         $allCars = $this->model->getAllCars();
-        $this->view->viewHome($allBrands, $brandsLogo, $allCars, null);
+        $this->view->viewHome($allBrands, $brandsLogo, $allCars, null, $allBrandsCar, null);
     }
 
     function showAllCars(){
@@ -69,11 +70,14 @@ class CarsController{
         $this->model->createCarDB($_POST['car'], $_POST['brand'], $_POST['year'], $_POST['description'], $_POST['euro'], $sold);    
         $id = $this->model->getIdCarImg($_POST['car']);
 
-        // var_dump($id);
+        $idLogo = $this->model->getIdBrandImg($_POST['brand']);
         $allBrands = $this->model->getBrands();
+        $allBrandsAndCar = $this->model->getBrandsAndCar();
         $brandsLogo= $this->model->getBrandsLogo();
         $allCars = $this->model->getAllCars();
-        $this->view->viewHome($allBrands, $brandsLogo, $allCars, $id);
+        //la razon por la que llamo otra vez a la funcion home es para pasarle el $id de la imagen
+        //intente con otras formas pero no se me ocurrio nada mas que a traves del viewHome
+        $this->view->viewHome($allBrands, $brandsLogo, $allCars, $id, $allBrandsAndCar, $idLogo);
     }
 
     function saveImgCar(){
@@ -93,78 +97,6 @@ class CarsController{
             $this->model->saveImgCarDB($car, $nameFile, $biImg, $typeFile, $id);
             $this->view->viewHomeLocation(); 
             var_dump($_FILES['photo']);
-            // var_dump($id);
         } 
     }
-
-    // function createCar(){  
-    //     if(!isset($_POST['sold'])){
-    //         $sold = 0;    
-    //     }else{
-    //         $sold = 1;
-    //     } 
-    //     $this->model->createCarDB($_POST['car'], $_POST['brand'], $_POST['year'], $_POST['description'], $_POST['euro'], $sold);    
-        
-    //     $id = $this->model->getIdCarImg($_POST['car']);
-        
-    //     var_dump($_FILES['photo']);
-
-        
-    //     if(isset($_FILES['photo'])){
-    //         //retenemos toda la informacion
-    //         $typeFile = $_FILES['photo']['type'];
-    //         $nameFile = $_FILES['photo']['name'];
-    //         $sizeFile = $_FILES['photo']['size'];
-            
-    //         //extraemos los binarios de la img
-    //         $uploadedImg = fopen($_FILES['photo']['tmp_name'], 'r');
-    //         $biImg = fread($uploadedImg, $sizeFile);
-
-            
-    //         $this->model->saveLogoDB($_POST['car'], $nameFile, $biImg, $typeFile, $id);
-    //         $this->view->viewHomeLocation();
-    //     }
-    // }
-
-
-    // function saveLogo(){
-    //     if(isset($_FILES['photo'])){
-    //         //retenemos toda la informacion
-    //         $typeFile = $_FILES['photo']['type'];
-    //         $nameFile = $_FILES['photo']['name'];
-    //         $sizeFile = $_FILES['photo']['size'];
-    //         $brand = $_POST['brand'];
-    //         //extraemos los binarios de la img
-    //         $uploadedImg = fopen($_FILES['photo']['tmp_name'], 'r');
-    //         $biImg = fread($uploadedImg, $sizeFile);
-
-            
-    //         $this->model->saveLogoDB($brand, $nameFile, $biImg, $typeFile);
-    //         $this->view->viewHomeLocation();
-    //     }
-    // }
-
-    // function createBrand(){ 
-    //     if(isset($_POST['brand'], $_POST['descriptionBrand'])){
-    //         $brand = $_POST['brand'];
-    //         $description = $_POST['descriptionBrand'];
-    //         $idLogo = $_POST['idlogo'];
-    //     }
-    //     $this->model->createBrandDB($brand, $description, $idLogo);    
-    //     $this->view->viewHomeLocation();
-    // }
-
-    // function deleteBrand($brand){
-    //     $this->model->deleteBrandDB($brand);    
-    //     $this->view->viewHomeLocation();
-    // }
-
-    // function modifiedName(){ 
-    //     if(!empty($_POST['newName'] && $_POST['nameModified']) && isset($_POST['newName'], $_POST['nameModified'])){       
-    //         $newName = $_POST['newName'];
-    //         $nameModified = $_POST['nameModified'];    
-    //     }
-    //     $this->model->modifiedNameDB($newName, $nameModified);
-    //     $this->view->viewHomeLocation();
-    // }
 }

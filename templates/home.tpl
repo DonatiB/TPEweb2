@@ -1,5 +1,6 @@
 {include file="templates/header.tpl"}
 
+{*Navs diferentes para los templates*}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <a class="navbar-brand" href="login">Login</a>
@@ -24,19 +25,17 @@
 
 <div class="container">   
     <div class="forms">
-         <div class="form-car">
+        <div class="form-car">
+            <h1>Create Car</h1>
             <form action="createCar" method="post">    
                 <div class="mb-3">        
-                    <label for="enter-car" class="form-label" >Enter Car</label>
+                    <label for="enter-car" class="form-label">Enter Car</label>
                     <input type="text" name="car" class="form-control" id="enter-car">    
                 </div>
-                {* <div class="mb-3">
-                    <label for="enter-img" class="form-label">Img</label>
-                    <input type="file" name="photo" class="form-control" id="enter-img"> 
-                </div> *}
                 <select name="brand" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                    {*Seleccionamos (el id de) la marca para el auto*}
                     {foreach from=$allBrands item=$brand}
-                    <option value="{$brand->id_brand}">{$brand->brand}</option> 
+                        <option value="{$brand->id_brand}">{$brand->brand}</option> 
                     {/foreach}
                 </select>
                 <div class="mb-3">
@@ -62,9 +61,9 @@
                     <label for="enter-car-img" class="form-label" >Enter Car Img</label>
                     <input type="text" name="car" class="form-control" id="enter-car-img">    
                 </div>
+                {*Enviamos el id de la auto para relacionar la imagen con el auto correspondiente*}
                 {foreach from=$id item=$item}
                     <input type="hidden" name="id" value="{$item->id}">
-                {* <input type="hidden" name="id" value="65"> *}
                 {/foreach}   
                 <div class="mb-3">
                     <label for="enter-logo" class="form-label" >Logo</label>
@@ -75,19 +74,21 @@
         </div>
         
         <div class="form-brand">
+            <h1>Create Brand</h1>
             <form action="saveLogo" method="post" enctype="multipart/form-data"> 
                 <div class="mb-3">
-                    <label for="enter-brand" class="form-label" >Brand</label>
+                    <label for="enter-brand" class="form-label" >Enter Brand</label>
                     <input type="text" name="brand"  class="form-control" id="enter-brand">        
                 </div>
                 <div class="mb-3">
-                    <label for="enter-logo" class="form-label" >Logo</label>
+                    <label for="enter-logo" class="form-label">New Logo</label>
                     <input type="file" name="photo" class="form-control" id="enter-logo"> 
-                </div>      
+                </div>   
                 <button type="submit" class="btn btn-primary">Register Logo</button>  
             </form>
             <form action="createBrand" method="post"> 
                 <select name="brand" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                    {*Como primero creamos el logo de la marca y despues la marca, seleccionamos la marca ya creada en la tabla logo*}
                     {foreach from=$brandsLogo item=$item}
                         <option value="{$item->brand}">{$item->brand}</option> 
                     {/foreach}
@@ -96,20 +97,21 @@
                     <textarea name="descriptionBrand" class="form-control" placeholder="Leave a description here" id="floatingTextarea"></textarea>
                     <label for="floatingTextarea">Description New Brand</label>
                 </div> 
-                {foreach from=$brandsLogo item=$item}
+                {*Enviamos el id del logo para relacionar la marca con el logo correspondiente, 1 marca puede tener diferentes logos*} 
+                {foreach from=$idLogo item=$item}
                     <input type="hidden" name="idlogo" value="{$item->id_logo}">
                 {/foreach}
-                <br> 
                 <button type="submit" class="btn btn-primary">Register New Brand</button>   
             </form>   
             <br>
             <form action="modifiedName" method="POST">  
+                <h1>Modify the name of a brand</h1>
                 <div class="mb-3">
-                    <label for="enter-brand" class="form-label">New Brand</label>
+                    <label for="enter-brand" class="form-label">New Name Brand</label>
                     <input type="text" name="newName"  class="form-control" id="enter-brand">        
                 </div>           
                 <div class="mb-3">
-                    <label for="enter-brand" class="form-label">Modified Brand</label>
+                    <label for="enter-brand" class="form-label">Brand to modify</label>
                     <input type="text" name="nameModified"  class="form-control" id="enter-brand">        
                 </div>  
                 <button type="submit" class="btn btn-primary">Save Modified</button>
@@ -125,11 +127,10 @@
                     <h5 class="card-title">{$brand->brand}</h5>
                     <p class="card-text">{$brand->description}</p>                            
                     <a href="brand/{$brand->brand}" class="btn btn-primary">Go Cars</a>
-                    {foreach from=$allBrandsCar item=$brands} 
-                        {if $brand->brand == $brands->brand}
+                    {*Antes de eliminar la marca, elimino los autos de esa marca*}
+                    {foreach from=$allBrandsAndCar item=$brands} 
+                        {if $brand->brand == $brands->brand || !$brands->car}
                             <a href="deleteBrand/{$brand->brand}/{$brands->car}" class="btn btn-danger">Delete</a>
-                        {* {else if !$brands->car}
-                            <a href="deleteBrand/{$brand->brand}" class="btn btn-danger">Delete</a> *}
                         {/if}
                     {/foreach}
                 </div>

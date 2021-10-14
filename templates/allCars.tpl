@@ -15,12 +15,9 @@
 <div class="card-brands">
     {foreach from=$allCars item=$car}                             
       <div class="card" style="width: 15rem;"> 
-        {* {foreach from=$carsImg item=$img} *}
-          {if $car->car == $car->carImg}
-            <img src="images/cars/{$car->name}" class="card-img-top" alt="{$car->car}">
-          {/if} 
-        {* {/foreach}   *}
-        {* <img src="images/cars/supramk4.jpg" class="card-img" alt="Honda S2000"> *}
+        {if $car->car == $car->carImg}
+          <img src="images/cars/{$car->name}" class="card-img-top" alt="{$car->car}">
+        {/if} 
         <div class="card-body">
             <h5 class="card-title">{$car->car}</h5>
             <p class="card-text">{$car->description|truncate:50}</p>
