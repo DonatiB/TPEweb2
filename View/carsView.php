@@ -32,7 +32,10 @@ class CarsView{
     //     $this->smarty->display('templates/home.tpl'); 
     // }
 
-    function viewAllCars($allCars){             
+    function viewAllCars($allCars){  
+        foreach($allCars as $images){
+            $images->image = base64_encode($images->image);
+        }            
         $this->smarty->assign('allCars', $allCars);    
         $this->smarty->display('templates/allCars.tpl'); 
     }
@@ -47,8 +50,9 @@ class CarsView{
         $this->smarty->display('templates/carsBrand.tpl');
     }
 
-    function viewDescription($carDescription){
+    function viewDescription($carDescription, $carsImg){
         $this->smarty->assign('carDescription', $carDescription);
+        $this->smarty->assign('carsImg', $carsImg);
         $this->smarty->display('templates/carDescription.tpl');
     }
     

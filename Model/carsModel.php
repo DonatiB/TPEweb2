@@ -28,24 +28,24 @@ class CarsModel{
         return $logo;
     }
 
-    function getAllCars(){
-        $query = $this->db->prepare(
-            'SELECT * FROM cars');
-        $query->execute();
-        $allCars = $query->fetchAll(PDO::FETCH_OBJ);
-        return $allCars;
-    }
-
     // function getAllCars(){
     //     $query = $this->db->prepare(
-    //         'SELECT * 
-    //         FROM cars c 
-    //         INNER JOIN imgcars i
-    //         ON c.id = i.id');
+    //         'SELECT * FROM cars');
     //     $query->execute();
     //     $allCars = $query->fetchAll(PDO::FETCH_OBJ);
     //     return $allCars;
     // }
+
+    function getAllCars(){
+        $query = $this->db->prepare(
+            'SELECT * 
+            FROM cars c 
+            INNER JOIN imgcars i
+            ON c.id = i.id');
+        $query->execute();
+        $allCars = $query->fetchAll(PDO::FETCH_OBJ);
+        return $allCars;
+    }
 
     function getCarsBrand($brand){
         $query = $this->db->prepare(
@@ -90,7 +90,22 @@ class CarsModel{
         return $carDescription;
     }
 
-    function deleteCarDB($id){
+    // function descriptionByCarImgDB($carDescription){
+    //     $query = $this->db->prepare(
+    //         'SELECT *
+    //         FROM cars c
+    //         INNER JOIN imgcars b
+    //         ON c.id_brand = b.id_brand 
+    //         WHERE c.id = ?'
+    //     );
+    //     $query->execute(array($carDescription));
+    //     $carDescription = $query->fetchAll(PDO::FETCH_OBJ);
+    //     return $carDescription;
+    // }
+
+    function deleteCarDB($id, $car){
+        $queryCar = $this->db->prepare("DELETE FROM imgcars WHERE carImg=?");
+        $queryCar->execute(array( $car));
         $queryCar = $this->db->prepare("DELETE FROM cars WHERE id=?");
         $queryCar->execute(array($id));
     }
@@ -120,7 +135,7 @@ class CarsModel{
 
     function saveImgCarDB($car, $name, $biImg, $type, $id){
         // $id = $this->getIdCarImg($car);
-        $query = $this->db->prepare('INSERT INTO imgcars(car, name, image, type, id) VALUES (?, ?, ?, ?, ?)');
+        $query = $this->db->prepare('INSERT INTO imgcars(carImg, name, image, type, id) VALUES (?, ?, ?, ?, ?)');
         $query->execute(array($car, $name, $biImg, $type, $id));
     }
 

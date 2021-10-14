@@ -19,9 +19,10 @@ class BrandController{
     function home(){
         $this->authHelper->checkLoggedIn();
         $allBrands = $this->model->getBrands();
+        $allBrandsCar = $this->model->getBrandsCar();
         $brandsLogo= $this->model->getBrandsLogo();
         $allCars = $this->model->getAllCars();
-        $this->view->viewHome($allBrands, $brandsLogo, $allCars, null);
+        $this->view->viewHome($allBrands, $brandsLogo, $allCars, null, $allBrandsCar);
     }
 
     function saveLogo(){
@@ -38,6 +39,9 @@ class BrandController{
             
             $this->model->saveLogoDB($brand, $nameFile, $biImg, $typeFile);
             $this->view->viewHomeLocation();
+            // var_dump($_FILES['photo']);
+            // echo "<br>";
+            // var_dump($biImg);
         }
     }
 
@@ -55,8 +59,8 @@ class BrandController{
         $this->view->viewHomeLocation();
     }
 
-    function deleteBrand($brand){
-        $this->model->deleteBrandDB($brand);    
+    function deleteBrand($brand, $car){
+        $this->model->deleteBrandDB($brand, $car);    
         $this->view->viewHomeLocation();
     }
 

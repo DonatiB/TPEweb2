@@ -48,7 +48,7 @@ switch($paramsURL[0]){
         $carsController->descriptionByCar($paramsURL[1]);       
     break;
     case 'deleteCar':
-        $carsController->deleteCar($paramsURL[1], $paramsURL[2]);       
+        $carsController->deleteCar($paramsURL[1], $paramsURL[2], $paramsURL[3]);       
     break;
     case 'soldCar':
         $carsController->soldCar($paramsURL[1], $paramsURL[2]);       
@@ -66,13 +66,13 @@ switch($paramsURL[0]){
         $brandController->saveLogo();    
     break;
     case 'createBrand': 
-        $brandControllerr->createBrand();    
+        $brandController->createBrand();    
     break;
     case 'deleteBrand': 
-        $brandController->deleteBrand($paramsURL[1]);    
+        $brandController->deleteBrand($paramsURL[1], $paramsURL[2]);    
     break;
     case 'modifiedName': 
-        $brandControllerr->modifiedName();    
+        $brandController->modifiedName();    
     break;
     default:
         echo 'Error 404 Page not found';

@@ -14,11 +14,12 @@ class BrandView{
     }
 
 
-    function viewHome($allBrands, $brandsLogo, $allCars, $id){     
+    function viewHome($allBrands, $brandsLogo, $allCars, $id, $allBrandsCar){     
         foreach($allBrands as $images){
             $images->image = base64_encode($images->image);
         }        
-        $this->smarty->assign('allBrands', $allBrands);    
+        $this->smarty->assign('allBrands', $allBrands);   
+        $this->smarty->assign('allBrandsCar', $allBrandsCar);  
         $this->smarty->assign('brandsLogo', $brandsLogo);
         $this->smarty->assign('allCars', $allCars);
         $this->smarty->assign('id', $id);

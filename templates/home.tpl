@@ -56,15 +56,15 @@
                     <input type="number" name="euro"class="form-control" id="enter-price"> 
                 </div>  
                 <button type="submit" class="btn btn-primary">Register</button>      
-                </form>
-                <form action="saveImgCar" method="post" enctype="multipart/form-data"> 
+            </form>
+            <form action="saveImgCar" method="post" enctype="multipart/form-data"> 
                 <div class="mb-3">        
                     <label for="enter-car-img" class="form-label" >Enter Car Img</label>
                     <input type="text" name="car" class="form-control" id="enter-car-img">    
                 </div>
                 {foreach from=$id item=$item}
                     <input type="hidden" name="id" value="{$item->id}">
-                    {* <input type="number" name="id" value="65"> *}
+                {* <input type="hidden" name="id" value="65"> *}
                 {/foreach}   
                 <div class="mb-3">
                     <label for="enter-logo" class="form-label" >Logo</label>
@@ -118,14 +118,20 @@
     </div> 
     
     <div class="card-brands">
-        {foreach from=$allBrands item=$brand}                             
-                <div class="card" style="width: 18rem;">   
-                 <img src="data:image/jpg;base64,{$brand->image}" class="card-img-top" alt="{$car->brand} Logo"> 
+        {foreach from=$allBrands item=$brand}                           
+            <div class="card" style="width: 18rem;">   
+                <img src="data:image/jpg;base64,{$brand->image}" class="card-img-top" alt="{$car->brand} Logo"> 
                 <div class="card-body">
                     <h5 class="card-title">{$brand->brand}</h5>
                     <p class="card-text">{$brand->description}</p>                            
                     <a href="brand/{$brand->brand}" class="btn btn-primary">Go Cars</a>
-                    <a href="deleteBrand/{$brand->brand}" class="btn btn-danger">Delete</a>
+                    {foreach from=$allBrandsCar item=$brands} 
+                        {if $brand->brand == $brands->brand}
+                            <a href="deleteBrand/{$brand->brand}/{$brands->car}" class="btn btn-danger">Delete</a>
+                        {* {else if !$brands->car}
+                            <a href="deleteBrand/{$brand->brand}" class="btn btn-danger">Delete</a> *}
+                        {/if}
+                    {/foreach}
                 </div>
             </div>
         {/foreach}

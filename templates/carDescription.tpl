@@ -29,7 +29,12 @@
 {foreach from=$carDescription item=$car}
   <div class="container">
     <div class="card bg-dark text-white" style="max-width: 45rem; margin:auto;">
-      <img src="images/cars/supramk4.jpg" class="card-img" alt="Honda S2000">
+      {foreach from=$carsImg item=$img}
+        {if $car->car == $img->carImg}
+          <img src="images/cars/{$img->name}" class="card-img-top" alt="{$car->car}">
+        {/if} 
+      {/foreach}
+      {* <img src="images/cars/supramk4.jpg" class="card-img" alt="Honda S2000"> *}
       <div class="card-img-overlay">
           <h4 class="card-title">{$car->car}</h4>
           <h5 class="card-title">{$car->brand}</h5>

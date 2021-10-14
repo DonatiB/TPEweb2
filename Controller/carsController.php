@@ -41,11 +41,12 @@ class CarsController{
     function descriptionByCar($carDescription){
         $this->authHelper->checkLoggedIn();
         $carDescription = $this->model->descriptionByCarDB($carDescription);
-        $this->view->viewDescription($carDescription);
+        $carsImg = $this->model->getImgCars();
+        $this->view->viewDescription($carDescription, $carsImg);
     }
 
-    function deleteCar($brand, $id){
-        $this->model->deleteCarDB($id);
+    function deleteCar($brand, $id, $car){
+        $this->model->deleteCarDB($id, $car);
         $this->view->viewBrandLocation($brand);
     }
 
@@ -68,6 +69,7 @@ class CarsController{
         $this->model->createCarDB($_POST['car'], $_POST['brand'], $_POST['year'], $_POST['description'], $_POST['euro'], $sold);    
         $id = $this->model->getIdCarImg($_POST['car']);
 
+        // var_dump($id);
         $allBrands = $this->model->getBrands();
         $brandsLogo= $this->model->getBrandsLogo();
         $allCars = $this->model->getAllCars();
@@ -90,6 +92,8 @@ class CarsController{
 
             $this->model->saveImgCarDB($car, $nameFile, $biImg, $typeFile, $id);
             $this->view->viewHomeLocation(); 
+            var_dump($_FILES['photo']);
+            // var_dump($id);
         } 
     }
 

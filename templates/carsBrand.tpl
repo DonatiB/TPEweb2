@@ -25,7 +25,7 @@
     {foreach from=$carsBrand item=$cars}
       <div class="card" style="max-width: 18rem;">
         {foreach from=$carsImg item=$img}
-          {if $cars->car == $img->car}
+          {if $cars->car == $img->carImg}
             <img src="images/cars/{$img->name}" class="card-img-top {if $cars->sold} sold {/if}" alt="{$cars->car}">
           {/if} 
         {/foreach}
@@ -34,7 +34,8 @@
               <h5 class="card-title"><a href="description/{$cars->id}">{$cars->car}</a></h5>
               <p class="card-text">{$cars->description|truncate:50}</p>
               <p class="card-text"><small class="text-muted">Year: {$cars->year}</small></p>
-              <a href="deleteCar/{$cars->brand}/{$cars->id}" class="btn btn-danger">Delete</a>
+              <a href="deleteCar/{$cars->brand}/{$cars->id}/{$cars->car}" class="btn btn-danger">Delete</a>
+              {* <a href="deleteCar/{$cars->brand}/{$cars->id}" class="btn btn-danger">Delete</a> *}
               <a href="onSaleCar/{$cars->brand}/{$cars->id}" class="btn btn-primary">Sold</a>
           {else}
               <h5 class="card-title"><a href="description/{$cars->id}">{$cars->car}</a></h5>
