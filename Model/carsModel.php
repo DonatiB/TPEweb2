@@ -124,25 +124,25 @@ class CarsModel{
         $query->execute(array($car, $name, $biImg, $type, $id));
     }
 
-    function createBrandDB($brand, $description, $idLogo){
-        $queryCar = $this->db->prepare('INSERT INTO brands(brand, description, id_logo) VALUES (?, ?, ?)');         
-        $queryCar->execute(array($brand, $description, $idLogo));
-    }
+    // function createBrandDB($brand, $description, $idLogo){
+    //     $queryCar = $this->db->prepare('INSERT INTO brands(brand, description, id_logo) VALUES (?, ?, ?)');         
+    //     $queryCar->execute(array($brand, $description, $idLogo));
+    // }
 
-    function modifiedNameDB($newName, $nameModified){
-        $query = $this->db->prepare("UPDATE brands SET brand=:newName WHERE brand=:nameModified");  
-        $query->bindParam(':newName', $newName);
-        $query->bindParam(':nameModified', $nameModified);       
-        $query->execute();
-    }
+    // function modifiedNameDB($newName, $nameModified){
+    //     $query = $this->db->prepare("UPDATE brands SET brand=:newName WHERE brand=:nameModified");  
+    //     $query->bindParam(':newName', $newName);
+    //     $query->bindParam(':nameModified', $nameModified);       
+    //     $query->execute();
+    // }
 
     function saveLogoDB($brand, $name, $biImg, $type){
         $query = $this->db->prepare('INSERT INTO `imgbrands`(`brand_logo`, `name`, `image`, `type`) VALUE(?, ?, ?, ?)');
         $query->execute(array($brand, $name, $biImg, $type));
     }
 
-    function deleteBrandDB($brand){
-        $queryCar = $this->db->prepare("DELETE FROM brands WHERE brand=?");
-        $queryCar->execute(array($brand));
-    }
+    // function deleteBrandDB($brand){
+    //     $queryCar = $this->db->prepare("DELETE FROM brands WHERE brand=?");
+    //     $queryCar->execute(array($brand));
+    // }
 }

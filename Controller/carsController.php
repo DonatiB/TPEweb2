@@ -123,44 +123,44 @@ class CarsController{
     // }
 
 
-    function saveLogo(){
-        if(isset($_FILES['photo'])){
-            //retenemos toda la informacion
-            $typeFile = $_FILES['photo']['type'];
-            $nameFile = $_FILES['photo']['name'];
-            $sizeFile = $_FILES['photo']['size'];
-            $brand = $_POST['brand'];
-            //extraemos los binarios de la img
-            $uploadedImg = fopen($_FILES['photo']['tmp_name'], 'r');
-            $biImg = fread($uploadedImg, $sizeFile);
+    // function saveLogo(){
+    //     if(isset($_FILES['photo'])){
+    //         //retenemos toda la informacion
+    //         $typeFile = $_FILES['photo']['type'];
+    //         $nameFile = $_FILES['photo']['name'];
+    //         $sizeFile = $_FILES['photo']['size'];
+    //         $brand = $_POST['brand'];
+    //         //extraemos los binarios de la img
+    //         $uploadedImg = fopen($_FILES['photo']['tmp_name'], 'r');
+    //         $biImg = fread($uploadedImg, $sizeFile);
 
             
-            $this->model->saveLogoDB($brand, $nameFile, $biImg, $typeFile);
-            $this->view->viewHomeLocation();
-        }
-    }
+    //         $this->model->saveLogoDB($brand, $nameFile, $biImg, $typeFile);
+    //         $this->view->viewHomeLocation();
+    //     }
+    // }
 
-    function createBrand(){ 
-        if(isset($_POST['brand'], $_POST['descriptionBrand'])){
-            $brand = $_POST['brand'];
-            $description = $_POST['descriptionBrand'];
-            $idLogo = $_POST['idlogo'];
-        }
-        $this->model->createBrandDB($brand, $description, $idLogo);    
-        $this->view->viewHomeLocation();
-    }
+    // function createBrand(){ 
+    //     if(isset($_POST['brand'], $_POST['descriptionBrand'])){
+    //         $brand = $_POST['brand'];
+    //         $description = $_POST['descriptionBrand'];
+    //         $idLogo = $_POST['idlogo'];
+    //     }
+    //     $this->model->createBrandDB($brand, $description, $idLogo);    
+    //     $this->view->viewHomeLocation();
+    // }
 
-    function deleteBrand($brand){
-        $this->model->deleteBrandDB($brand);    
-        $this->view->viewHomeLocation();
-    }
+    // function deleteBrand($brand){
+    //     $this->model->deleteBrandDB($brand);    
+    //     $this->view->viewHomeLocation();
+    // }
 
-    function modifiedName(){ 
-        if(!empty($_POST['newName'] && $_POST['nameModified']) && isset($_POST['newName'], $_POST['nameModified'])){       
-            $newName = $_POST['newName'];
-            $nameModified = $_POST['nameModified'];    
-        }
-        $this->model->modifiedNameDB($newName, $nameModified);
-        $this->view->viewHomeLocation();
-    }
+    // function modifiedName(){ 
+    //     if(!empty($_POST['newName'] && $_POST['nameModified']) && isset($_POST['newName'], $_POST['nameModified'])){       
+    //         $newName = $_POST['newName'];
+    //         $nameModified = $_POST['nameModified'];    
+    //     }
+    //     $this->model->modifiedNameDB($newName, $nameModified);
+    //     $this->view->viewHomeLocation();
+    // }
 }

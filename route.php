@@ -36,7 +36,7 @@ switch($paramsURL[0]){
         $loginController->verifyLogin();
     break;
     case 'home':
-        $carsController->home();
+        $brandController->home();
     break;
     case 'allCars':
         $carsController->showAllCars();
@@ -63,16 +63,16 @@ switch($paramsURL[0]){
         $carsController->saveImgCar();    
     break;
     case 'saveLogo': 
-        $carsController->saveLogo();    
+        $brandController->saveLogo();    
     break;
     case 'createBrand': 
-        $carsController->createBrand();    
+        $brandControllerr->createBrand();    
     break;
     case 'deleteBrand': 
-        $carsController->deleteBrand($paramsURL[1]);    
+        $brandController->deleteBrand($paramsURL[1]);    
     break;
     case 'modifiedName': 
-        $carsController->modifiedName();    
+        $brandControllerr->modifiedName();    
     break;
     default:
         echo 'Error 404 Page not found';

@@ -8,4 +8,20 @@ class BrandView{
     {
         $this->smarty = new Smarty();
     }
+
+    function viewHomeLocation(){
+        header("Location: ".BASE_URL."home");
+    }
+
+
+    function viewHome($allBrands, $brandsLogo, $allCars, $id){     
+        foreach($allBrands as $images){
+            $images->image = base64_encode($images->image);
+        }        
+        $this->smarty->assign('allBrands', $allBrands);    
+        $this->smarty->assign('brandsLogo', $brandsLogo);
+        $this->smarty->assign('allCars', $allCars);
+        $this->smarty->assign('id', $id);
+        $this->smarty->display('templates/home.tpl'); 
+    }
 }
