@@ -61,7 +61,7 @@ class CarsModel{
 
     function getCarsBrand($brand){
         $query = $this->db->prepare(
-            'SELECT * 
+            'SELECT b.brand, c.description, c.car, c.sold, c.id, c.year 
             FROM cars c 
             INNER JOIN brands b
             ON c.id_brand = b.id_brand

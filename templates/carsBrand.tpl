@@ -9,9 +9,15 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="{BASE_URL}">Home</a>
-        </li>
+        {if $log}
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="visitHome">Home</a>
+            </li>  
+        {else}
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{BASE_URL}">Home</a>
+            </li>
+        {/if} 
         <li class="nav-item"> 
           {foreach from=$title item=$cars}
             <a class="nav-link disabled"  tabindex="-1" aria-disabled="true">{$cars->brand}</a>      
@@ -34,11 +40,17 @@
         {/foreach}
         <div class="card-body {if $cars->sold} sold {/if}">
           {if !$cars->sold}
-              <h5 class="card-title"><a href="description/{$cars->id}">{$cars->car}</a></h5>
+              {if $log}                           
+                <h5 class="card-title"><a href="visitDescription/{$cars->id}">{$cars->car}</a></h5>
+              {else}
+                <h5 class="card-title"><a href="description/{$cars->id}">{$cars->car}</a></h5>
+              {/if} 
               <p class="card-text">{$cars->description|truncate:50}</p>
               <p class="card-text"><small class="text-muted">Year: {$cars->year}</small></p>
-              <a href="deleteCar/{$cars->brand}/{$cars->id}/{$cars->car}" class="btn btn-danger">Delete</a>
-              <a href="onSaleCar/{$cars->brand}/{$cars->id}" class="btn btn-primary">Sold</a>
+              {if !$log}
+                <a href="deleteCar/{$cars->brand}/{$cars->id}/{$cars->car}" class="btn btn-danger">Delete</a>
+                <a href="onSaleCar/{$cars->brand}/{$cars->id}" class="btn btn-primary">Sold</a>
+              {/if} 
           {else}
               <h5 class="card-title"><a href="description/{$cars->id}">{$cars->car}</a></h5>
               <p class="card-text">{$cars->description|truncate:50}</p>

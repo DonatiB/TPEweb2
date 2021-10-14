@@ -20,6 +20,18 @@ $loginController = new LoginController();
 
 
 switch($paramsURL[0]){
+    case 'visitHome':
+        $brandController->homeVisit();
+    break;
+    case 'visitCars':
+        $carsController->byBrandVisit($paramsURL[1]);
+    break;
+    case 'visitDescription':
+        $carsController->descriptionByCarVisit($paramsURL[1]);
+    break;
+    case 'visitAllCars':
+        $carsController->showAllCarsVisit();
+    break;
     case 'login':
         $loginController->login();
     break;

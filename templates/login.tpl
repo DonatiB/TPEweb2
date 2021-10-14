@@ -19,6 +19,7 @@
         </div>
         <div class="login">
             <a href="registration"><h2>REGISTRATION</h2></a>
+            <a href="visitHome"><h2>VISIT</h2></a>
             <div class="login-items">
                 <button class="fb"><i class="fab fa-facebook-f"></i> Access with Facebook</button>
                 <button class="tw"><i class="fab fa-twitter"></i> Access with Twitter</button>

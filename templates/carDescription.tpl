@@ -12,11 +12,20 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="{BASE_URL}">Home</a>
         </li>
-        <li class="nav-item">
+
+       {if $log}
+          <li class="nav-item">
+            {foreach from=$carDescription item=$car}
+                <a class="nav-link active" aria-current="page" href="visitCars/{$car->brand}">{$car->brand}</a>
+            {/foreach}
+          </li> 
+        {else}
+          <li class="nav-item">
             {foreach from=$carDescription item=$car}
                 <a class="nav-link active" aria-current="page" href="{BASE_URL_BRAND}/{$car->brand}">{$car->brand}</a>
             {/foreach}
-        </li>
+          </li>
+        {/if} 
         <li class="nav-item"> 
             {foreach from=$carDescription item=$car}
              <a class="nav-link disabled"  tabindex="-1" aria-disabled="true">{$car->car}</a>

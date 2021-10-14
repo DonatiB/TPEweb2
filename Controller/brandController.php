@@ -16,13 +16,28 @@ class BrandController{
         $this->authHelper = new AuthHelper();
     }
 
+    //siempre va a ser true (queria intentarlo con otra tabla que tuviera los roles pero llegue justo)
+    function log(){  
+        $log = true; 
+        return $log;
+    }
+    
     function home(){
         $this->authHelper->checkLoggedIn();
         $allBrands = $this->model->getBrands();
         $allBrandsAndCar = $this->model->getBrandsAndCar();
         $brandsLogo= $this->model->getBrandsLogo();
         $allCars = $this->model->getAllCars();
-        $this->view->viewHome($allBrands, $brandsLogo, $allCars, null, $allBrandsAndCar, null);
+        $this->view->viewHome($allBrands, $brandsLogo, $allCars, null, $allBrandsAndCar, null, null);
+    }
+
+    function homeVisit(){
+        $log = $this->log();
+        $allBrands = $this->model->getBrands();
+        $allBrandsAndCar = $this->model->getBrandsAndCar();
+        $brandsLogo= $this->model->getBrandsLogo();
+        $allCars = $this->model->getAllCars();
+        $this->view->viewHome($allBrands, $brandsLogo, $allCars, null, $allBrandsAndCar, null, $log);
     }
 
     function saveLogo(){
@@ -39,12 +54,11 @@ class BrandController{
             $this->model->saveLogoDB($brand, $nameFile, $biImg, $typeFile);
             $idLogo = $this->model->getIdBrandImg($_POST['brand']);
 
-            // $this->view->viewHomeLocation();
             $allBrands = $this->model->getBrands();
             $allBrandsAndCar = $this->model->getBrandsAndCar();
             $brandsLogo= $this->model->getBrandsLogo();
             $allCars = $this->model->getAllCars();
-            $this->view->viewHome($allBrands, $brandsLogo, $allCars, null, $allBrandsAndCar, $idLogo);
+            $this->view->viewHome($allBrands, $brandsLogo, $allCars, null, $allBrandsAndCar, $idLogo, null);
         }
     }
 

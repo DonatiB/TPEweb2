@@ -6,11 +6,11 @@ class LoginController{
 
     private $model;
     private $view;
+    
     function __construct()
     {
         $this->model = new UserModel();
         $this->view = new LoginView(); 
-    
     }
 
     function login(){

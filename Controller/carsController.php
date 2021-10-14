@@ -28,7 +28,7 @@ class CarsController{
     function showAllCars(){
         $this->authHelper->checkLoggedIn();
         $allCars = $this->model->getAllCars();
-        $this->view->viewAllCars($allCars);
+        $this->view->viewAllCars($allCars, null);
     }
 
     function byBrand($brand){
@@ -36,14 +36,40 @@ class CarsController{
         $carsBrand = $this->model->getCarsBrand($brand);
         $carsImg = $this->model->getImgCars();
         $brandTitle = $this->model->getBrandTitle($brand);
-        $this->view->carsByBrand($carsBrand, $brandTitle, $carsImg);
+        $this->view->carsByBrand($carsBrand, $brandTitle, $carsImg, null);
     }
 
     function descriptionByCar($carDescription){
         $this->authHelper->checkLoggedIn();
         $carDescription = $this->model->descriptionByCarDB($carDescription);
         $carsImg = $this->model->getImgCars();
-        $this->view->viewDescription($carDescription, $carsImg);
+        $this->view->viewDescription($carDescription, $carsImg, null);
+    }
+
+    function log(){  
+        $log = true; 
+        return $log;
+    }
+
+    function byBrandVisit($brand){
+        $log = $this->log();
+        $carsBrand = $this->model->getCarsBrand($brand);
+        $carsImg = $this->model->getImgCars();
+        $brandTitle = $this->model->getBrandTitle($brand);
+        $this->view->carsByBrand($carsBrand, $brandTitle, $carsImg, $log);
+    }
+
+    function showAllCarsVisit(){
+        $log = $this->log();
+        $allCars = $this->model->getAllCars();
+        $this->view->viewAllCars($allCars, $log);
+    }
+
+    function descriptionByCarVisit($carDescription){
+        $log = $this->log();
+        $carDescription = $this->model->descriptionByCarDB($carDescription);
+        $carsImg = $this->model->getImgCars();
+        $this->view->viewDescription($carDescription, $carsImg, $log);
     }
 
     function deleteCar($brand, $id, $car){
@@ -78,6 +104,7 @@ class CarsController{
         //la razon por la que llamo otra vez a la funcion home es para pasarle el $id de la imagen
         //intente con otras formas pero no se me ocurrio nada mas que a traves del viewHome
         $this->view->viewHome($allBrands, $brandsLogo, $allCars, $id, $allBrandsAndCar, $idLogo);
+        
     }
 
     function saveImgCar(){
@@ -96,7 +123,7 @@ class CarsController{
 
             $this->model->saveImgCarDB($car, $nameFile, $biImg, $typeFile, $id);
             $this->view->viewHomeLocation(); 
-            var_dump($_FILES['photo']);
+            // var_dump($_FILES['photo']);
         } 
     }
 }

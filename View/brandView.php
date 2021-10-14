@@ -13,7 +13,7 @@ class BrandView{
         header("Location: ".BASE_URL."home");
     }
 
-    function viewHome($allBrands, $brandsLogo, $allCars, $id, $allBrandsAndCar, $idLogo){     
+    function viewHome($allBrands, $brandsLogo, $allCars, $id, $allBrandsAndCar, $idLogo, $log){     
         foreach($allBrands as $images){
             $images->image = base64_encode($images->image);
         }        
@@ -23,6 +23,7 @@ class BrandView{
         $this->smarty->assign('allCars', $allCars);
         $this->smarty->assign('id', $id);
         $this->smarty->assign('idLogo', $idLogo);
+        $this->smarty->assign('log', $log);
         $this->smarty->display('templates/home.tpl'); 
     }
 }
