@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\type;
+
 require_once  './model/userModel.php';
 require_once './view/loginView.php';
 

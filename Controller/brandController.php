@@ -24,10 +24,11 @@ class BrandController{
         $allBrandsAndCar = $this->model->getBrandsAndCar();
         $brandsLogo= $this->model->getBrandsLogo();
         $allCars = $this->model->getAllCars();
-        $this->view->viewHome($allBrands, $brandsLogo, $allCars, null, $allBrandsAndCar, null, null);
+        $this->view->viewHome($allBrands, $brandsLogo, $allCars, $allBrandsAndCar, null);
     }
 
-    function saveLogo(){
+    function createBrand(){
+
         if(isset($_FILES['photo'])){
             //retenemos toda la informacion
             $typeFile = $_FILES['photo']['type'];
@@ -39,25 +40,20 @@ class BrandController{
             $biImg = fread($uploadedImg, $sizeFile);
             
             $this->model->saveLogoDB($brand, $nameFile, $biImg, $typeFile);
-            $idLogo = $this->model->getIdBrandImg($_POST['brand']);
+            
+            $idLogoArray = $this->model->getIdBrandImg($_POST['brand']);
+            foreach($idLogoArray as $item){
+                $idLogo = $item->id_logo;
+            }
 
-            $allBrands = $this->model->getBrands();
-            $allBrandsAndCar = $this->model->getBrandsAndCar();
-            $brandsLogo= $this->model->getBrandsLogo();
-            $allCars = $this->model->getAllCars();
-            $this->view->viewHome($allBrands, $brandsLogo, $allCars, null, $allBrandsAndCar, $idLogo, null);
+            if(isset($_POST['brand'], $_POST['descriptionBrand'])){
+                $brand = $_POST['brand'];
+                $description = $_POST['descriptionBrand'];
+
+                $this->model->createBrandDB($brand, $description, $idLogo);
+                $this->view->viewHomeLocation();
+            }
         }
-    }
-
-    function createBrand(){ 
-        if(isset($_POST['brand'], $_POST['descriptionBrand'])){
-            $brand = $_POST['brand'];
-            $description = $_POST['descriptionBrand'];
-            $idLogo = $_POST['idlogo'];
-        }
-
-        $this->model->createBrandDB($brand, $description, $idLogo);
-        $this->view->viewHomeLocation();
     }
 
     function deleteBrand($brand, $car){
@@ -86,6 +82,6 @@ class BrandController{
         $allBrandsAndCar = $this->model->getBrandsAndCar();
         $brandsLogo= $this->model->getBrandsLogo();
         $allCars = $this->model->getAllCars();
-        $this->view->viewHome($allBrands, $brandsLogo, $allCars, null, $allBrandsAndCar, null, $log);
+        $this->view->viewHome($allBrands, $brandsLogo, $allCars, $allBrandsAndCar,$log);
     }
 }

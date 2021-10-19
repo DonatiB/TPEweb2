@@ -71,12 +71,6 @@ switch($paramsURL[0]){
     case 'createCar': 
         $carsController->createCar(); 
     break;
-    case 'saveImgCar': 
-        $carsController->saveImgCar();    
-    break;
-    case 'saveLogo': 
-        $brandController->saveLogo();    
-    break;
     case 'createBrand': 
         $brandController->createBrand();    
     break;

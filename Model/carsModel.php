@@ -33,20 +33,20 @@ class CarsModel{
         return $allBrands;
     }
 
-    function getBrandsLogo(){
-        $query = $this->db->prepare(
-            'SELECT * FROM imgbrands');
-        $query->execute();
-        $logo = $query->fetchAll(PDO::FETCH_OBJ);
-        return $logo;
-    }
+    // function getBrandsLogo(){
+    //     $query = $this->db->prepare(
+    //         'SELECT * FROM imgbrands');
+    //     $query->execute();
+    //     $logo = $query->fetchAll(PDO::FETCH_OBJ);
+    //     return $logo;
+    // }
 
-    function getIdBrandImg($brand){     
-        $query = $this->db->prepare('SELECT id_logo FROM imgbrands WHERE brand=?');
-        $query->execute(array($brand));
-        $brandId = $query->fetchAll(PDO::FETCH_OBJ);
-        return $brandId;
-    }
+    // function getIdBrandImg($brand){     
+    //     $query = $this->db->prepare('SELECT id_logo FROM imgbrands WHERE brand=?');
+    //     $query->execute(array($brand));
+    //     $brandId = $query->fetchAll(PDO::FETCH_OBJ);
+    //     return $brandId;
+    // }
 
     function getAllCars(){
         $query = $this->db->prepare(
@@ -122,7 +122,6 @@ class CarsModel{
     function createCarDB($car, $brand, $year, $description, $euro, $sold){     
         $queryCar = $this->db->prepare('INSERT INTO cars(car, id_brand, year, description, price, sold) VALUES (?, ?, ?,?, ?, ?)');         
         $queryCar->execute(array($car, $brand, $year, $description, $euro ,$sold));
-        
     }
 
     function getIdCarImg($car){     
@@ -136,10 +135,4 @@ class CarsModel{
         $query = $this->db->prepare('INSERT INTO imgcars(carImg, name, image, type, id) VALUES (?, ?, ?, ?, ?)');
         $query->execute(array($car, $name, $biImg, $type, $id));
     }
-
-    function saveLogoDB($brand, $name, $biImg, $type){
-        $query = $this->db->prepare('INSERT INTO `imgbrands`(`brand_logo`, `name`, `image`, `type`) VALUE(?, ?, ?, ?)');
-        $query->execute(array($brand, $name, $biImg, $type));
-    }
-
 }

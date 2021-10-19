@@ -62,7 +62,7 @@
         <div class="forms">
             <div class="form-car">
                 <h1>Create Car</h1>
-                <form action="createCar" method="post">    
+                <form action="createCar" method="post" enctype="multipart/form-data">    
                     <div class="mb-3">        
                         <label for="enter-car" class="form-label">Enter Car</label>
                         <input type="text" name="car" class="form-control" id="enter-car">    
@@ -89,53 +89,53 @@
                         <label for="enter-price" class="form-label" >Euro Price</label>
                         <input type="number" name="euro"class="form-control" id="enter-price"> 
                     </div>  
-                    <button type="submit" class="btn btn-primary">Register</button>      
-                </form>
-                <form action="saveImgCar" method="post" enctype="multipart/form-data"> 
-                    <div class="mb-3">        
+                    {* <button type="submit" class="btn btn-primary">Register</button>      
+                    </form>
+                    <form action="saveImgCar" method="post" enctype="multipart/form-data">  *}
+                    {* <div class="mb-3">        
                         <label for="enter-car-img" class="form-label" >Enter Car Img (jpg)</label>
                         <input type="text" name="car" class="form-control" id="enter-car-img">    
-                    </div>
+                    </div> *}
                     {*Enviamos el id de la auto para relacionar la imagen con el auto correspondiente*}
-                    {foreach from=$id item=$item}
+                    {* {foreach from=$id item=$item}
                         <input type="hidden" name="id" value="{$item->id}">
-                    {/foreach}   
+                    {/foreach}    *}
                     <div class="mb-3">
-                        <label for="enter-logo" class="form-label" >Logo</label>
-                        <input type="file" name="photo" class="form-control" id="enter-logo"> 
+                        <label class="form-label" >Logo</label>
+                        <input type="file" name="photo" class="form-control"> 
                     </div>    
-                    <button type="submit" class="btn btn-primary">Register Image</button>  
+                    <button type="submit" class="btn btn-primary">Register Car</button>  
                 </form>
             </div>
             
             <div class="form-brand">
                 <h1>Create Brand</h1>
-                <form action="saveLogo" method="post" enctype="multipart/form-data"> 
-                    <div class="mb-3">
-                        <label for="enter-brand" class="form-label" >Enter Brand</label>
-                        <input type="text" name="brand"  class="form-control" id="enter-brand">        
-                    </div>
-                    <div class="mb-3">
-                        <label for="enter-logo" class="form-label">New Logo</label>
-                        <input type="file" name="photo" class="form-control" id="enter-logo"> 
-                    </div>   
-                    <button type="submit" class="btn btn-primary">Register Logo</button>  
-                </form>
-                <form action="createBrand" method="post"> 
-                    <select name="brand" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-                        {*Como primero creamos el logo de la marca y despues la marca, seleccionamos la marca ya creada en la tabla logo*}
+                <form action="createBrand" method="post" enctype="multipart/form-data">    
+                    {* <button type="submit" class="btn btn-primary">Register Logo</button>   *}
+                    {* </form>
+                    <form action="createBrand" method="post">  *}
+                    {* <select name="brand" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                        Como primero creamos el logo de la marca y despues la marca, seleccionamos la marca ya creada en la tabla logo
                         {foreach from=$brandsLogo item=$item}
                             <option value="{$item->brand}">{$item->brand}</option> 
                         {/foreach}
-                    </select>
+                    </select> *}
+                    <div class="mb-3">        
+                        <label for="enter-brand" class="form-label">Enter Brand</label>
+                        <input type="text" name="brand" class="form-control" id="enter-brand">    
+                    </div>
                     <div class="form-floating">
                         <textarea name="descriptionBrand" class="form-control" placeholder="Leave a description here" id="floatingTextarea"></textarea>
                         <label for="floatingTextarea">Description New Brand</label>
                     </div> 
+                    <div class="mb-3">
+                        <label for="enter-logo" class="form-label">New Logo</label>
+                        <input type="file" name="photo" class="form-control" id="enter-logo"> 
+                    </div>
                     {*Enviamos el id del logo para relacionar la marca con el logo correspondiente, 1 marca puede tener diferentes logos*} 
-                    {foreach from=$idLogo item=$item}
-                        <input type="hidden" name="idlogo" value="{$item->id_logo}">
-                    {/foreach}
+                    {* {foreach from=$idLogo item=$item}
+                        <input type="hidden" name="idlogo" value="{$item->id_logo}"> *}
+                    {* {/foreach} *}
                     <button type="submit" class="btn btn-primary">Register New Brand</button>   
                 </form>   
                 <br>

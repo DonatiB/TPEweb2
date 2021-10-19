@@ -16,15 +16,6 @@ class CarsController{
         $this->authHelper = new AuthHelper();
     }
 
-    function home(){
-        $this->authHelper->checkLoggedIn();
-        $allBrands = $this->model->getBrands();
-        $allBrandsCar = $this->model->getBrandsAndCar();
-        $brandsLogo= $this->model->getBrandsLogo();
-        $allCars = $this->model->getAllCars();
-        $this->view->viewHome($allBrands, $brandsLogo, $allCars, null, $allBrandsCar, null);
-    }
-
     function showAllCars(){
         $this->authHelper->checkLoggedIn();
         $allCars = $this->model->getAllCars();
@@ -93,37 +84,26 @@ class CarsController{
         }else{
             $sold = 1;
         } 
+
         $this->model->createCarDB($_POST['car'], $_POST['brand'], $_POST['year'], $_POST['description'], $_POST['euro'], $sold);    
-        $id = $this->model->getIdCarImg($_POST['car']);
 
-        $idLogo = $this->model->getIdBrandImg($_POST['brand']);
-        $allBrands = $this->model->getBrands();
-        $allBrandsAndCar = $this->model->getBrandsAndCar();
-        $brandsLogo= $this->model->getBrandsLogo();
-        $allCars = $this->model->getAllCars();
-        //la razon por la que llamo otra vez a la funcion home es para pasarle el $id de la imagen
-        //intente con otras formas pero no se me ocurrio nada mas que a traves del viewHome
-        $this->view->viewHome($allBrands, $brandsLogo, $allCars, $id, $allBrandsAndCar, $idLogo);
-        
-    }
-
-    function saveImgCar(){
         if(isset($_FILES['photo'])){
 
             //retenemos toda la informacion
             $typeFile = $_FILES['photo']['type'];
             $nameFile = $_FILES['photo']['name'];
             $sizeFile = $_FILES['photo']['size'];
-            $car = $_POST['car'];
-            $id = $_POST['id'];
-
             //extraemos los binarios de la img
             $uploadedImg = fopen($_FILES['photo']['tmp_name'], 'r');
             $biImg = fread($uploadedImg, $sizeFile);
+            $id = $this->model->getIdCarImg($_POST['car']);
 
-            $this->model->saveImgCarDB($car, $nameFile, $biImg, $typeFile, $id);
+            foreach($id as $item){
+                $id_car = $item->id;
+            }
+
+            $this->model->saveImgCarDB($_POST['car'], $nameFile, $biImg, $typeFile, $id_car);
             $this->view->viewHomeLocation(); 
-            // var_dump($_FILES['photo']);
         } 
     }
 }
