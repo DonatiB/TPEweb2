@@ -16,8 +16,6 @@ class BrandController{
         $this->authHelper = new AuthHelper();
     }
 
-    
-    
     function home(){
         $this->authHelper->checkLoggedIn();
         $allBrands = $this->model->getBrands();
@@ -27,6 +25,22 @@ class BrandController{
         $this->view->viewHome($allBrands, $brandsLogo, $allCars, $allBrandsAndCar, null);
     }
 
+    //siempre va a ser true (queria intentarlo con otra tabla que tuviera los roless)
+    function log(){  
+        $log = true; 
+        return $log;
+    }
+
+    function homeVisit(){
+        $log = $this->log();
+        $allBrands = $this->model->getBrands();
+        $allBrandsAndCar = $this->model->getBrandsAndCar();
+        $brandsLogo= $this->model->getBrandsLogo();
+        $allCars = $this->model->getAllCars();
+        $this->view->viewHome($allBrands, $brandsLogo, $allCars, $allBrandsAndCar,$log);
+    }
+
+    
     function createBrand(){
 
         if(isset($_FILES['photo'])){
@@ -70,18 +84,5 @@ class BrandController{
         $this->view->viewHomeLocation();
     }
 
-    //siempre va a ser true (queria intentarlo con otra tabla que tuviera los roless)
-    function log(){  
-        $log = true; 
-        return $log;
-    }
-
-    function homeVisit(){
-        $log = $this->log();
-        $allBrands = $this->model->getBrands();
-        $allBrandsAndCar = $this->model->getBrandsAndCar();
-        $brandsLogo= $this->model->getBrandsLogo();
-        $allCars = $this->model->getAllCars();
-        $this->view->viewHome($allBrands, $brandsLogo, $allCars, $allBrandsAndCar,$log);
-    }
+    
 }

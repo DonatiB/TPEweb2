@@ -59,6 +59,9 @@ switch($paramsURL[0]){
     case 'description':
         $carsController->descriptionByCar($paramsURL[1]);       
     break;
+    case 'createCar': 
+        $carsController->createCar(); 
+    break;
     case 'deleteCar':
         $carsController->deleteCar($paramsURL[1], $paramsURL[2], $paramsURL[3]);       
     break;
@@ -67,9 +70,6 @@ switch($paramsURL[0]){
     break;
     case 'onSaleCar': 
         $carsController->onSaleCar($paramsURL[1], $paramsURL[2]);    
-    break;
-    case 'createCar': 
-        $carsController->createCar(); 
     break;
     case 'createBrand': 
         $brandController->createBrand();    

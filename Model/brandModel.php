@@ -41,8 +41,6 @@ class BrandModel{
         return $logo;
     }
 
-    
-
     function getAllCars(){
         $query = $this->db->prepare(
             'SELECT * FROM cars');

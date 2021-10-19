@@ -33,21 +33,6 @@ class CarsModel{
         return $allBrands;
     }
 
-    // function getBrandsLogo(){
-    //     $query = $this->db->prepare(
-    //         'SELECT * FROM imgbrands');
-    //     $query->execute();
-    //     $logo = $query->fetchAll(PDO::FETCH_OBJ);
-    //     return $logo;
-    // }
-
-    // function getIdBrandImg($brand){     
-    //     $query = $this->db->prepare('SELECT id_logo FROM imgbrands WHERE brand=?');
-    //     $query->execute(array($brand));
-    //     $brandId = $query->fetchAll(PDO::FETCH_OBJ);
-    //     return $brandId;
-    // }
-
     function getAllCars(){
         $query = $this->db->prepare(
             'SELECT * 
