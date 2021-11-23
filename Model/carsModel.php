@@ -105,16 +105,17 @@ class CarsModel{
     }
     
     function createCarDB($car, $brand, $year, $description, $euro, $sold){     
-        $queryCar = $this->db->prepare('INSERT INTO cars(car, id_brand, year, description, price, sold) VALUES (?, ?, ?,?, ?, ?)');         
-        $queryCar->execute(array($car, $brand, $year, $description, $euro ,$sold));
+        $query = $this->db->prepare('INSERT INTO cars(car, id_brand, year, description, price, sold) VALUES (?, ?, ?,?, ?, ?)');         
+        $query->execute(array($car, $brand, $year, $description, $euro ,$sold));
+        return $query->db->lastInsertId();
     }
 
-    function getIdCarImg($car){     
-        $query = $this->db->prepare('SELECT id FROM cars WHERE car=?');
-        $query->execute(array($car));
-        $carId = $query->fetchAll(PDO::FETCH_OBJ);
-        return $carId;
-    }
+    // function getIdCarImg($car){     
+    //     $query = $this->db->prepare('SELECT id FROM cars WHERE car=?');
+    //     $query->execute(array($car));
+    //     $carId = $query->fetchAll(PDO::FETCH_OBJ);
+    //     return $carId;
+    // }
 
     function saveImgCarDB($car, $name, $biImg, $type, $id){
         $query = $this->db->prepare('INSERT INTO imgcars(carImg, name, image, type, id) VALUES (?, ?, ?, ?, ?)');

@@ -42,6 +42,7 @@ class BrandController{
 
     
     function createBrand(){
+        $this->authHelper->checkLoggedIn();
 
         if(isset($_FILES['photo'])){
             //retenemos toda la informacion
@@ -53,29 +54,31 @@ class BrandController{
             $uploadedImg = fopen($_FILES['photo']['tmp_name'], 'r');
             $biImg = fread($uploadedImg, $sizeFile);
             
-            $this->model->saveLogoDB($brand, $nameFile, $biImg, $typeFile);
+            $id_logo = $this->model->saveLogoDB($brand, $nameFile, $biImg, $typeFile);
             
-            $idLogoArray = $this->model->getIdBrandImg($_POST['brand']);
-            foreach($idLogoArray as $item){
-                $idLogo = $item->id_logo;
-            }
+            // $idLogoArray = $this->model->getIdBrandImg($_POST['brand']);
+            // foreach($idLogoArray as $item){
+            //     $idLogo = $item->id_logo;
+            // }
 
             if(isset($_POST['brand'], $_POST['descriptionBrand'])){
                 $brand = $_POST['brand'];
                 $description = $_POST['descriptionBrand'];
 
-                $this->model->createBrandDB($brand, $description, $idLogo);
+                $this->model->createBrandDB($brand, $description, $id_logo);
                 $this->view->viewHomeLocation();
             }
         }
     }
 
     function deleteBrand($brand, $car){
+        $this->authHelper->checkLoggedIn();
         $this->model->deleteBrandDB($brand, $car);    
         $this->view->viewHomeLocation();
     }
 
     function modifiedName(){ 
+        $this->authHelper->checkLoggedIn();
         if(!empty($_POST['newName'] && $_POST['nameModified']) && isset($_POST['newName'], $_POST['nameModified'])){       
             $newName = $_POST['newName'];
             $nameModified = $_POST['nameModified'];    
@@ -84,5 +87,4 @@ class BrandController{
         $this->view->viewHomeLocation();
     }
 
-    
 }

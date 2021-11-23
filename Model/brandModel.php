@@ -54,16 +54,17 @@ class BrandModel{
         $queryCar->execute(array($brand, $description, $idLogo));
     }
 
-    function getIdBrandImg($brand){     
-        $query = $this->db->prepare('SELECT id_logo FROM imgbrands WHERE brand=?');
-        $query->execute(array($brand));
-        $brandId = $query->fetchAll(PDO::FETCH_OBJ);
-        return $brandId;
-    }
+    // function getIdBrandImg($brand){     
+    //     $query = $this->db->prepare('SELECT id_logo FROM imgbrands WHERE brand=?');
+    //     $query->execute(array($brand));
+    //     $brandId = $query->fetchAll(PDO::FETCH_OBJ);
+    //     return $brandId;
+    // }
 
     function saveLogoDB($brand, $name, $biImg, $type){
         $query = $this->db->prepare('INSERT INTO `imgbrands`(`brand`, `name`, `image`, `type`) VALUE(?, ?, ?, ?)');
         $query->execute(array($brand, $name, $biImg, $type));
+        return $query->db->lastInsertId();
     }
 
     function deleteBrandDB($brand, $car){

@@ -64,28 +64,33 @@ class CarsController{
     }
 
     function deleteCar($brand, $id, $car){
+        $this->authHelper->checkLoggedIn();
         $this->model->deleteCarDB($id, $car);
         $this->view->viewBrandLocation($brand);
     }
 
     function soldCar($brand, $sold){
+        $this->authHelper->checkLoggedIn();
         $this->model->soldCarDB($sold);
         $this->view->viewBrandLocation($brand);        
     }
 
     function onSaleCar($brand, $sold){
+        $this->authHelper->checkLoggedIn();
         $this->model->onSaleCarDB($sold);
         $this->view->viewBrandLocation($brand);
     }
 
     function createCar(){  
+        $this->authHelper->checkLoggedIn();
+        
         if(!isset($_POST['sold'])){
             $sold = 0;    
         }else{
             $sold = 1;
         } 
 
-        $this->model->createCarDB($_POST['car'], $_POST['brand'], $_POST['year'], $_POST['description'], $_POST['euro'], $sold);    
+        $id_car = $this->model->createCarDB($_POST['car'], $_POST['brand'], $_POST['year'], $_POST['description'], $_POST['euro'], $sold);    
 
         if(isset($_FILES['photo'])){
 
@@ -96,11 +101,12 @@ class CarsController{
             //extraemos los binarios de la img
             $uploadedImg = fopen($_FILES['photo']['tmp_name'], 'r');
             $biImg = fread($uploadedImg, $sizeFile);
-            $id = $this->model->getIdCarImg($_POST['car']);
 
-            foreach($id as $item){
-                $id_car = $item->id;
-            }
+            // $id = $this->model->getIdCarImg($_POST['car']);
+
+            // foreach($id as $item){
+            //     $id_car = $item->id;
+            // }
 
             $this->model->saveImgCarDB($_POST['car'], $nameFile, $biImg, $typeFile, $id_car);
             $this->view->viewHomeLocation(); 
