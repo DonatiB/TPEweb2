@@ -34,7 +34,7 @@ function render(comments)
         let id = comment.id_comment;
         let score = parseInt(comment.score, 10);
 
-        let html = `<li id="${id}"> ${comment.email} ha comentado: ${comment.email} <br> 
+        let html = `<li id="${id}"> ${comment.email} ha comentado: ${comment.comment} <br> 
                                     ${comment.email} ha calificado esta pelicula con una puntuacion de: ${score}
                     </li>`;
 
