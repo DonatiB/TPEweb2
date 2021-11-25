@@ -17,30 +17,31 @@ class CarsView{
         header("Location: ".BASE_URL_BRAND."/$brand");
     }
 
-    function viewAllCars($allCars, $log){  
-        foreach($allCars as $images){
-            $images->image = base64_encode($images->image);
-        }            
-        $this->smarty->assign('log', $log);
-        $this->smarty->assign('allCars', $allCars);    
-        $this->smarty->display('templates/allCars.tpl'); 
-    }
-
-    function carsByBrand($carsBrand, $brandTitle, $carsImg, $log){
+    function carsByBrand($carsBrand, $brandTitle, $carsImg, $admin){
         foreach($carsImg as $images){
             $images->image = base64_encode($images->image);
         }  
         $this->smarty->assign('title', $brandTitle);
         $this->smarty->assign('carsBrand', $carsBrand);
         $this->smarty->assign('carsImg', $carsImg);
-        $this->smarty->assign('log', $log);
+        $this->smarty->assign('admin', $admin);
         $this->smarty->display('templates/carsBrand.tpl');
     }
 
-    function viewDescription($carDescription, $carsImg, $log){
+    function viewDescription($carDescription, $carsImg, $admin, $id_user){
         $this->smarty->assign('carDescription', $carDescription);
         $this->smarty->assign('carsImg', $carsImg);
-        $this->smarty->assign('log', $log);
+        $this->smarty->assign('admin', $admin);
+        $this->smarty->assign('id_user', $id_user);
         $this->smarty->display('templates/carDescription.tpl');
+    }
+
+    function viewAllCars($allCars, $admin){  
+        foreach($allCars as $images){
+            $images->image = base64_encode($images->image);
+        }            
+        $this->smarty->assign('admin', $admin);
+        $this->smarty->assign('allCars', $allCars);    
+        $this->smarty->display('templates/allCars.tpl'); 
     }
 }

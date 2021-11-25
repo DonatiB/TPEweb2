@@ -16,73 +16,50 @@ class CarsController{
         $this->authHelper = new AuthHelper();
     }
 
-    function showAllCars(){
-        $this->authHelper->checkLoggedIn();
-        $allCars = $this->model->getAllCars();
-        $this->view->viewAllCars($allCars, null);
-    }
 
     function byBrand($brand){
-        $this->authHelper->checkLoggedIn();
+        $admin = $this->authHelper->checkLoggedIn();
         $carsBrand = $this->model->getCarsBrand($brand);
         $carsImg = $this->model->getImgCars();
         $brandTitle = $this->model->getBrandTitle($brand);
-        $this->view->carsByBrand($carsBrand, $brandTitle, $carsImg, null);
+        $this->view->carsByBrand($carsBrand, $brandTitle, $carsImg, $admin);
     }
 
     function descriptionByCar($carDescription){
-        $this->authHelper->checkLoggedIn();
+        $admin = $this->authHelper->checkLoggedIn();
+        $id_user = $this->authHelper->user();
         $carDescription = $this->model->descriptionByCarDB($carDescription);
         $carsImg = $this->model->getImgCars();
-        $this->view->viewDescription($carDescription, $carsImg, null);
+        $this->view->viewDescription($carDescription, $carsImg, $admin, $id_user);
     }
 
-    function log(){  
-        $log = true; 
-        return $log;
-    }
-
-    function byBrandVisit($brand){
-        $log = $this->log();
-        $carsBrand = $this->model->getCarsBrand($brand);
-        $carsImg = $this->model->getImgCars();
-        $brandTitle = $this->model->getBrandTitle($brand);
-        $this->view->carsByBrand($carsBrand, $brandTitle, $carsImg, $log);
-    }
-
-    function showAllCarsVisit(){
-        $log = $this->log();
+    function showAllCars(){
+        $admin = $this->authHelper->checkLoggedIn();
         $allCars = $this->model->getAllCars();
-        $this->view->viewAllCars($allCars, $log);
+        $this->view->viewAllCars($allCars, $admin);
     }
 
-    function descriptionByCarVisit($carDescription){
-        $log = $this->log();
-        $carDescription = $this->model->descriptionByCarDB($carDescription);
-        $carsImg = $this->model->getImgCars();
-        $this->view->viewDescription($carDescription, $carsImg, $log);
-    }
 
     function deleteCar($brand, $id, $car){
-        $this->authHelper->checkLoggedIn();
+        $this->authHelper->checkAdmin();
         $this->model->deleteCarDB($id, $car);
         $this->view->viewBrandLocation($brand);
     }
 
     function soldCar($brand, $sold){
-        $this->authHelper->checkLoggedIn();
+        $this->authHelper->checkAdmin();
         $this->model->soldCarDB($sold);
         $this->view->viewBrandLocation($brand);        
     }
 
     function onSaleCar($brand, $sold){
-        $this->authHelper->checkLoggedIn();
+        $this->authHelper->checkAdmin();
         $this->model->onSaleCarDB($sold);
         $this->view->viewBrandLocation($brand);
     }
 
     function createCar(){  
-        $this->authHelper->checkLoggedIn();
+        $this->authHelper->checkAdmin();
         
         if(!isset($_POST['sold'])){
             $sold = 0;    
@@ -102,14 +79,36 @@ class CarsController{
             $uploadedImg = fopen($_FILES['photo']['tmp_name'], 'r');
             $biImg = fread($uploadedImg, $sizeFile);
 
-            // $id = $this->model->getIdCarImg($_POST['car']);
-
-            // foreach($id as $item){
-            //     $id_car = $item->id;
-            // }
-
             $this->model->saveImgCarDB($_POST['car'], $nameFile, $biImg, $typeFile, $id_car);
             $this->view->viewHomeLocation(); 
         } 
+    }
+
+    
+    //PARA VISITANTES
+    function log(){  
+        $log = 3; 
+        return $log;
+    }
+
+    function byBrandVisit($brand){
+        $log = $this->log();
+        $carsBrand = $this->model->getCarsBrand($brand);
+        $carsImg = $this->model->getImgCars();
+        $brandTitle = $this->model->getBrandTitle($brand);
+        $this->view->carsByBrand($carsBrand, $brandTitle, $carsImg, $log);
+    }
+
+    function descriptionByCarVisit($carDescription){
+        $log = $this->log();
+        $carDescription = $this->model->descriptionByCarDB($carDescription);
+        $carsImg = $this->model->getImgCars();
+        $this->view->viewDescription($carDescription, $carsImg, $log, null);
+    }
+
+    function showAllCarsVisit(){
+        $log = $this->log();
+        $allCars = $this->model->getAllCars();
+        $this->view->viewAllCars($allCars, $log);
     }
 }

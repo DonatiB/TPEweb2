@@ -5,7 +5,7 @@ class CarsModel{
     private $db;
     function __construct()
     {
-        $this->db = new PDO('mysql:host=localhost;'.'dbname=carsjaponese;charset=utf8', 'root', '');
+        $this->db = new PDO('mysql:host=localhost;'.'dbname=carsjaponeses;charset=utf8', 'root', '');
     }
 
     function getBrands(){
@@ -76,7 +76,7 @@ class CarsModel{
 
     function descriptionByCarDB($carDescription){
         $query = $this->db->prepare(
-            'SELECT c.car, c.year, c.description, c.sold, c.price, b.brand
+            'SELECT c.car, c.id, c.year, c.description, c.sold, c.price, b.brand
             FROM cars c
             INNER JOIN brands b
             ON c.id_brand = b.id_brand 
@@ -107,7 +107,7 @@ class CarsModel{
     function createCarDB($car, $brand, $year, $description, $euro, $sold){     
         $query = $this->db->prepare('INSERT INTO cars(car, id_brand, year, description, price, sold) VALUES (?, ?, ?,?, ?, ?)');         
         $query->execute(array($car, $brand, $year, $description, $euro ,$sold));
-        return $query->db->lastInsertId();
+        return $this->db->lastInsertId();
     }
 
     // function getIdCarImg($car){     

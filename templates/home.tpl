@@ -9,24 +9,29 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            {if $log}
+            {if $admin == 3}
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="visitHome">Home</a>
                 </li>  
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="visitAllCars">All Cars</a>
                 </li> 
-            {else}
+            {else $admin == 0 || $admin == 1}
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{BASE_URL}">Home</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="allCars">All Cars</a>
                 </li> 
+                {if $admin == 1}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="users">Users</a>
+                    </li>
+                {/if} 
             {/if}   
         </ul>
         </div>
-        {if !$log}
+        {if $admin == 0 || $admin == 1}
             <div class="d-flex">
                 <a href="logout"><button class="btn btn-danger" type="submit">Sign off</button></a>
             </div>
@@ -34,30 +39,24 @@
     </div>
 </nav>
 
-{if $log}
+{if $admin == 3 || $admin == 0}
     <div class="card-brands">
         {foreach from=$allBrands item=$brand}                           
             <div class="card" style="width: 18rem;">   
-                <img src="data:image/jpg;base64,{$brand->image}" class="card-img-top" alt="{$car->brand} Logo"> 
+                <img src="data:image/jpg;base64,{$brand->image}" class="card-img-top" alt="{$brand->brand} Logo"> 
                 <div class="card-body">
                     <h5 class="card-title">{$brand->brand}</h5>
                     <p class="card-text">{$brand->description}</p> 
-                    {if $log}                           
+                    {if $admin == 3}                           
                         <a href="visitCars/{$brand->brand}" class="btn btn-primary">Go Cars</a>
-                    {/if} 
-                    {*Antes de eliminar la marca, elimino los autos de esa marca*}
-                    {if !$log}
-                        {foreach from=$allBrandsAndCar item=$brands} 
-                            {if $brand->brand == $brands->brand || !$brands->car}
-                                <a href="deleteBrand/{$brand->brand}/{$brands->car}" class="btn btn-danger">Delete</a>
-                            {/if}
-                        {/foreach}
+                    {elseif $admin == 0}
+                        <a href="brand/{$brand->brand}" class="btn btn-primary">Go Cars</a>
                     {/if} 
                 </div>
             </div>
         {/foreach}
     </div>  
-{else}
+{else if $admin == 1}
     <div class="container">   
         <div class="forms">
             <div class="form-car">
@@ -132,7 +131,7 @@
         <div class="card-brands">
             {foreach from=$allBrands item=$brand}                           
                 <div class="card" style="width: 18rem;">   
-                    <img src="data:image/jpg;base64,{$brand->image}" class="card-img-top" alt="{$car->brand} Logo"> 
+                    <img src="data:image/jpg;base64,{$brand->image}" class="card-img-top"> 
                     <div class="card-body">
                         <h5 class="card-title">{$brand->brand}</h5>
                         <p class="card-text">{$brand->description}</p>                            

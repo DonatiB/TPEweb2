@@ -2,6 +2,7 @@
 require_once './Controller/carsController.php';
 require_once './Controller/loginController.php';
 require_once './Controller/brandController.php';
+require_once './Controller/userController.php';
 
 define('BASE_URL', '//'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].dirname($_SERVER['PHP_SELF']).'/');
 define('BASE_URL_BRAND', '//'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].dirname($_SERVER['PHP_SELF']).'/brand'); 
@@ -17,9 +18,11 @@ $paramsURL = explode('/', $action);
 $brandController = new BrandController();
 $carsController = new CarsController();
 $loginController = new LoginController();
+$userController = new UserController();
 
 
 switch($paramsURL[0]){
+    
     case 'visitHome':
         $brandController->homeVisit();
     break;
@@ -32,6 +35,17 @@ switch($paramsURL[0]){
     case 'visitAllCars':
         $carsController->showAllCarsVisit();
     break;
+
+    case 'users':
+        $userController->setUsers();
+    break;
+    case 'updateUser':
+        $userController->updateUser($paramsURL[1]);
+    break;
+    case 'deleteUser':
+        $userController->deleteUser($paramsURL[1]);
+    break;
+
     case 'login':
         $loginController->login();
     break;
@@ -47,6 +61,7 @@ switch($paramsURL[0]){
     case 'verify':
         $loginController->verifyLogin();
     break;
+
     case 'home':
         $brandController->home();
     break;

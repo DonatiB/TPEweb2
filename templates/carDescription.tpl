@@ -10,22 +10,22 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
       
-        {if $log}
+        {if $admin == 3}
           <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="visitHome">Home</a>
           </li>  
-        {else}
+        {else if $admin == 0 || $admin == 1}
           <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="{BASE_URL}">Home</a>
           </li>
         {/if} 
-       {if $log}
+       {if $admin == 3}
           <li class="nav-item">
             {foreach from=$carDescription item=$car}
                 <a class="nav-link active" aria-current="page" href="visitCars/{$car->brand}">{$car->brand}</a>
             {/foreach}
           </li> 
-        {else}
+        {else if $admin == 0 || $admin == 1}
           <li class="nav-item">
             {foreach from=$carDescription item=$car}
                 <a class="nav-link active" aria-current="page" href="{BASE_URL_BRAND}/{$car->brand}">{$car->brand}</a>
@@ -66,6 +66,32 @@
       </div>  
     </div>  
   </div>
+ 
+ 
+  <div id="list" id-car="{$car->id}" id-user="{$id_user}" admin="{$admin}">
+      <div class="mb-3">
+          <div class="col-8">
+              <ul class="list-comments list-group list-group-flush" id="area">
+              
+              </ul>
+              
+              <form  class="form-comment" method="post"> 
+              
+                {if $admin == 1 || $admin == 0}
+                  <label for="comment" class="form-label">Dejanos tu opinion acerca de esta bestia</label>
+                  <textarea class="form-control" id="comment" placeholder="Ingrese su comentario" rows="3"></textarea>
+                  <label for="score">Score (between 1 and 5):</label>
+                  <input id="score" type="number" id="quantity" name="quantity" min="1" max="5">
+                  <button type="submit">Comentar</button>
+                {/if}
+              </form>
+                 
+          </div>
+      </div>
+  </div>
+  
+    
+  <script src="./js/app.js"></script>
 {/foreach}
 
 {include file="templates/footer.tpl"}

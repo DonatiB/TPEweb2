@@ -5,7 +5,7 @@ class BrandModel{
     private $db;
     function __construct()
     {
-        $this->db = new PDO('mysql:host=localhost;'.'dbname=carsjaponese;charset=utf8', 'root', '');
+        $this->db = new PDO('mysql:host=localhost;'.'dbname=carsjaponeses;charset=utf8', 'root', '');
     }
 
     function getBrands(){
@@ -64,7 +64,7 @@ class BrandModel{
     function saveLogoDB($brand, $name, $biImg, $type){
         $query = $this->db->prepare('INSERT INTO `imgbrands`(`brand`, `name`, `image`, `type`) VALUE(?, ?, ?, ?)');
         $query->execute(array($brand, $name, $biImg, $type));
-        return $query->db->lastInsertId();
+        return $this->db->lastInsertId();
     }
 
     function deleteBrandDB($brand, $car){

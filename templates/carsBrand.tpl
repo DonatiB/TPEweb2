@@ -9,11 +9,11 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        {if $log}
+        {if $admin == 3}
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="visitHome">Home</a>
             </li>  
-        {else}
+        {else if $admin == 0 ||  $admin == 1}
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{BASE_URL}">Home</a>
             </li>
@@ -40,23 +40,27 @@
         {/foreach}
         <div class="card-body {if $cars->sold} sold {/if}">
           {if !$cars->sold}
-              {if $log}                           
+              {if $admin == 3}                           
                 <h5 class="card-title"><a href="visitDescription/{$cars->id}">{$cars->car}</a></h5>
-              {else}
+              {else if $admin == 0 || $admin == 1}
                 <h5 class="card-title"><a href="description/{$cars->id}">{$cars->car}</a></h5>
               {/if} 
               <p class="card-text">{$cars->description|truncate:50}</p>
               <p class="card-text"><small class="text-muted">Year: {$cars->year}</small></p>
-              {if !$log}
+              {if $admin == 1}
                 <a href="deleteCar/{$cars->brand}/{$cars->id}/{$cars->car}" class="btn btn-danger">Delete</a>
                 <a href="onSaleCar/{$cars->brand}/{$cars->id}" class="btn btn-primary">Sold</a>
               {/if} 
           {else}
-              <h5 class="card-title"><a href="description/{$cars->id}">{$cars->car}</a></h5>
+              {if $admin == 0 || $admin == 1}
+                <h5 class="card-title"><a href="description/{$cars->id}">{$cars->car}</a></h5>
+              {/if}
               <p class="card-text">{$cars->description|truncate:50}</p>
               <p class="card-text"><small class="text-muted">Year: {$cars->year}</small></p>
-              <a href="deleteCar/{$cars->brand}/{$cars->id}/{$cars->car}" class="btn btn-danger">Delete</a>
-              <a href="soldCar/{$cars->brand}/{$cars->id}" class="btn btn-primary">Restore</a>
+              {if $admin == 1}
+                <a href="deleteCar/{$cars->brand}/{$cars->id}/{$cars->car}" class="btn btn-danger">Delete</a>
+                <a href="soldCar/{$cars->brand}/{$cars->id}" class="btn btn-primary">Restore</a>
+              {/if} 
           {/if}           
         </div>
       </div>
